@@ -1,0 +1,14 @@
+C:\Users\codeday\EBSCO-Folio\LMG\LMG.DAT\bin\Debug\net6.0\LMG.DAT.deps.json
+C:\Users\codeday\EBSCO-Folio\LMG\LMG.DAT\bin\Debug\net6.0\LMG.DAT.runtimeconfig.json
+C:\Users\codeday\EBSCO-Folio\LMG\LMG.DAT\bin\Debug\net6.0\LMG.DAT.dll
+C:\Users\codeday\EBSCO-Folio\LMG\LMG.DAT\bin\Debug\net6.0\LMG.DAT.pdb
+C:\Users\codeday\EBSCO-Folio\LMG\LMG.DAT\obj\Debug\net6.0\LMG.DAT.csproj.AssemblyReference.cache
+C:\Users\codeday\EBSCO-Folio\LMG\LMG.DAT\obj\Debug\net6.0\LMG.DAT.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\codeday\EBSCO-Folio\LMG\LMG.DAT\obj\Debug\net6.0\LMG.DAT.AssemblyInfoInputs.cache
+C:\Users\codeday\EBSCO-Folio\LMG\LMG.DAT\obj\Debug\net6.0\LMG.DAT.AssemblyInfo.cs
+C:\Users\codeday\EBSCO-Folio\LMG\LMG.DAT\obj\Debug\net6.0\LMG.DAT.csproj.CoreCompileInputs.cache
+C:\Users\codeday\EBSCO-Folio\LMG\LMG.DAT\obj\Debug\net6.0\LMG.DAT.dll
+C:\Users\codeday\EBSCO-Folio\LMG\LMG.DAT\obj\Debug\net6.0\refint\LMG.DAT.dll
+C:\Users\codeday\EBSCO-Folio\LMG\LMG.DAT\obj\Debug\net6.0\LMG.DAT.pdb
+C:\Users\codeday\EBSCO-Folio\LMG\LMG.DAT\obj\Debug\net6.0\LMG.DAT.genruntimeconfig.cache
+C:\Users\codeday\EBSCO-Folio\LMG\LMG.DAT\obj\Debug\net6.0\ref\LMG.DAT.dll
