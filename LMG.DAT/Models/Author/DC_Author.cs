@@ -1,0 +1,44 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace LMG.DAT.Models.Author
+{
+    public class DC_Author : DataContextBase
+    {
+        // Attributes
+        public string FirstName { get; set; } = null!;
+
+        public string LastName { get; set; } = null!;
+
+        public string? Description { get; set; }
+
+        public string Dob { get; set; } = null!; // Date of birth
+
+        public string? Dod { get; set; } // Date of death
+    }
+
+    public class AuthorConfiguration : IEntityTypeConfiguration<DC_Author>
+    {
+        public void Configure(EntityTypeBuilder<DC_Author> builder)
+        {
+            // Set Id as PKs.
+            builder.ToTable("Author", "Author")
+                .HasKey(primaryKey => primaryKey.Id);
+
+            // Create new Id's when new authors are added to db.
+            builder.Property(m => m.Id).ValueGeneratedOnAdd();
+
+            // Configure column properties.
+            builder.Property(m => m.FirstName).HasMaxLength(64);
+            builder.Property(m => m.LastName).HasMaxLength(64);
+            builder.Property(m => m.Description).HasMaxLength(2048);
+            builder.Property(m => m.Dob).HasMaxLength(16);
+            builder.Property(m => m.Dod).HasMaxLength(16);
+        }
+    }
+}
