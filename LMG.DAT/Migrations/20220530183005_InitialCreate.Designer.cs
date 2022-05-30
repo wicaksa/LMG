@@ -4,6 +4,7 @@ using LMG.DAT.DataContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LMG.DAT.Migrations
 {
     [DbContext(typeof(LMG_DbContext))]
-    partial class LMG_DbContextModelSnapshot : ModelSnapshot
+    [Migration("20220530183005_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -107,9 +109,6 @@ namespace LMG.DAT.Migrations
                     b.Property<int>("PublicationYear")
                         .HasColumnType("int");
 
-                    b.Property<int>("SerieId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Series")
                         .HasMaxLength(1024)
                         .HasColumnType("nvarchar(1024)");
@@ -124,8 +123,6 @@ namespace LMG.DAT.Migrations
                         .HasColumnType("nvarchar(1024)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("SerieId");
 
                     b.ToTable("Book", "Book");
                 });
@@ -160,11 +157,7 @@ namespace LMG.DAT.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AuthorId");
-
-                    b.HasIndex("BookId");
-
-                    b.ToTable("BookAuthor");
+                    b.ToTable("DC_BookAuthor");
                 });
 
             modelBuilder.Entity("LMG.DAT.Models.Borrow.DC_Borrow", b =>
@@ -201,8 +194,6 @@ namespace LMG.DAT.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("BookId");
 
                     b.ToTable("Borrow", "Borrow");
                 });
@@ -291,8 +282,6 @@ namespace LMG.DAT.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BookId");
-
                     b.ToTable("Review", "Review");
                 });
 
@@ -332,72 +321,6 @@ namespace LMG.DAT.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Series", "Series");
-                });
-
-            modelBuilder.Entity("LMG.DAT.Models.Book.DC_Book", b =>
-                {
-                    b.HasOne("LMG.DAT.Models.Series.DC_Series", "Serie")
-                        .WithMany("Books")
-                        .HasForeignKey("SerieId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Serie");
-                });
-
-            modelBuilder.Entity("LMG.DAT.Models.BookAuthor.DC_BookAuthor", b =>
-                {
-                    b.HasOne("LMG.DAT.Models.Author.DC_Author", "Author")
-                        .WithMany()
-                        .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("LMG.DAT.Models.Book.DC_Book", "Book")
-                        .WithMany("BookAuthors")
-                        .HasForeignKey("BookId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Author");
-
-                    b.Navigation("Book");
-                });
-
-            modelBuilder.Entity("LMG.DAT.Models.Borrow.DC_Borrow", b =>
-                {
-                    b.HasOne("LMG.DAT.Models.Book.DC_Book", "Book")
-                        .WithMany("Borrows")
-                        .HasForeignKey("BookId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Book");
-                });
-
-            modelBuilder.Entity("LMG.DAT.Models.Review.DC_Review", b =>
-                {
-                    b.HasOne("LMG.DAT.Models.Book.DC_Book", "Book")
-                        .WithMany("Reviews")
-                        .HasForeignKey("BookId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Book");
-                });
-
-            modelBuilder.Entity("LMG.DAT.Models.Book.DC_Book", b =>
-                {
-                    b.Navigation("BookAuthors");
-
-                    b.Navigation("Borrows");
-
-                    b.Navigation("Reviews");
-                });
-
-            modelBuilder.Entity("LMG.DAT.Models.Series.DC_Series", b =>
-                {
-                    b.Navigation("Books");
                 });
 #pragma warning restore 612, 618
         }
