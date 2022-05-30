@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using LMG.DAT.Models.Book;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,9 @@ namespace LMG.DAT.Models.Series
         public int authorId { get; set; }
         public string SeriesName { get; set; }
         public int TotalBooks { get; set; }
+
+        //Relationship
+        public List<DC_Book> Books { get; set; }
     }
 
     public class SeriesConfiguration : IEntityTypeConfiguration<DC_Series>

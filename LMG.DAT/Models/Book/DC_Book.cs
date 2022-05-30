@@ -1,4 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using LMG.DAT.Models.BookAuthor;
+using LMG.DAT.Models.Borrow;
+using LMG.DAT.Models.Review;
+using LMG.DAT.Models.Series;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
@@ -24,6 +28,12 @@ namespace LMG.DAT.Models.Book
         public string? Summary { get; set; }
 
         public int PublicationYear { get; set; }
+
+        //Relationships
+        public List<DC_Review> Reviews { get; set; }
+        public DC_Series Serie { get; set; }
+        public List<DC_Borrow> Borrows { get; set; }
+        public List<DC_BookAuthor> BookAuthors { get; set; }
     }
 
     public class BookConfiguration : IEntityTypeConfiguration<DC_Book>
