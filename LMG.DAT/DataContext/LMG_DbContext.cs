@@ -48,7 +48,10 @@ namespace LMG.DAT.DataContext
             modelBuilder.Entity<DC_Series>().HasMany(s => s.Books).WithOne(s => s.Serie);
             modelBuilder.Entity<DC_Borrow>().HasOne(b => b.Book).WithMany(b => b.Borrows);
             modelBuilder.Entity<DC_BookAuthor>().HasOne(b => b.Book).WithMany(b => b.BookAuthors);
-            
+
+            modelBuilder.Entity<DC_Author>().HasMany(a => a.BookAuthors).WithOne(a => a.Author);
+            modelBuilder.Entity<DC_Book>().HasMany(b => b.Borrows).WithOne(b => b.Book);
+            modelBuilder.Entity<DC_Member>().HasMany(m => m.Borrows).WithOne(m => m.Members);
 
             base.OnModelCreating(modelBuilder);
         }
