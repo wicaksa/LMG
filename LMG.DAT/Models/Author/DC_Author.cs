@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using LMG.DAT.Models.BookAuthor;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
@@ -20,7 +21,12 @@ namespace LMG.DAT.Models.Author
         public string Dob { get; set; } = null!; // Date of birth
 
         public string? Dod { get; set; } // Date of death
+
+        // Relationships
+        public List<DC_BookAuthor> BookAuthors { get; set; }
     }
+
+    
 
     public class AuthorConfiguration : IEntityTypeConfiguration<DC_Author>
     {

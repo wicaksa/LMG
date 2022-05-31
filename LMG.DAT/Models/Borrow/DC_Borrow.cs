@@ -1,4 +1,5 @@
 ﻿using LMG.DAT.Models.Book;
+using LMG.DAT.Models.Member;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -17,6 +18,7 @@ namespace LMG.DAT.Models.Borrow
 
         //Relationship
         public DC_Book Book { get; set; }
+        public DC_Member Members { get; set; }
     }
 
     public class BorrowConfiguration : IEntityTypeConfiguration<DC_Borrow>

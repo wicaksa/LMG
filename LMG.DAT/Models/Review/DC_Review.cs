@@ -11,9 +11,12 @@ namespace LMG.DAT.Models.Review
 {
     public class DC_Review : DataContextBase
     {
+        // Attributes
         public int BookId { get; set; }
         public int MemberId { get; set; }
         public string Review { get; set; }
+
+        // Relationship
         public DC_Book Book { get; set; }
     }
 

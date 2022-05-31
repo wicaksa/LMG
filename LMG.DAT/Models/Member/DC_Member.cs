@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using LMG.DAT.Models.Borrow;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,10 @@ namespace LMG.DAT.Models.Member
         public string? Gender { get; set; }
 
         public int Phone { get; set; }
+
+        // Relationship
+        public List<DC_Borrow> Borrows { get; set; }
+
     }
 
     public class MemberConfiguration : IEntityTypeConfiguration<DC_Member>
