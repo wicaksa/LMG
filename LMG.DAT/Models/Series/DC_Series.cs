@@ -25,6 +25,10 @@ namespace LMG.DAT.Models.Series
         {
             builder.ToTable("Series", "Series")
                 .HasKey(m => m.Id);
+
+            //Relationship
+            builder.HasMany(s => s.Books).WithOne(s => s.Serie);
+
             builder.Property(m => m.Id).ValueGeneratedOnAdd();
             builder.Property(m => m.SeriesName).HasMaxLength(1024);
         }

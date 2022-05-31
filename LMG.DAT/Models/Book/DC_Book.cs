@@ -44,6 +44,9 @@ namespace LMG.DAT.Models.Book
             builder.ToTable("Book", "Book")
                 .HasKey(primaryKey => primaryKey.Id);
 
+            // Relationship
+            builder.HasMany(b => b.Borrows).WithOne(b => b.Book);
+
             // Generate PKs when books are added to db.
             builder.Property(m => m.Id).ValueGeneratedOnAdd();
 

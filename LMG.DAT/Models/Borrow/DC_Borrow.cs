@@ -25,11 +25,16 @@ namespace LMG.DAT.Models.Borrow
     {
         public void Configure(EntityTypeBuilder<DC_Borrow> builder)
         {
+            // Set Id's as PK
             builder.ToTable("Borrow", "Borrow")
                 .HasKey(m => m.Id);
+
+            // Relationship
+            builder.HasOne(b => b.Book).WithMany(b => b.Borrows);
+
+            // Column Properties
             builder.Property(m => m.Id).ValueGeneratedOnAdd();
             builder.Property(m => m.BorrowDate).HasMaxLength(16);
-
         }
     }
 }

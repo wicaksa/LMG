@@ -36,6 +36,9 @@ namespace LMG.DAT.Models.Member
             builder.ToTable("Member", "Member")
                 .HasKey(primaryKey => primaryKey.Id);
 
+            // Relationship.
+            builder.HasMany(m => m.Borrows).WithOne(m => m.Members);
+
             // Generate new Id's when new members are added to db.
             builder.Property(m => m.Id).ValueGeneratedOnAdd(); 
 

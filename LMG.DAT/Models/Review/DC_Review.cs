@@ -24,8 +24,14 @@ namespace LMG.DAT.Models.Review
     {
         public void Configure(EntityTypeBuilder<DC_Review> builder)
         {
+            // Set Ids as PK.
             builder.ToTable("Review", "Review")
                 .HasKey(m => m.Id);
+
+            // Relationship.
+            builder.HasOne(r => r.Book).WithMany(r => r.Reviews);
+
+            // Set column properties.
             builder.Property(m => m.Id).ValueGeneratedOnAdd();
             builder.Property(m => m.Review).HasMaxLength(2048);
         }

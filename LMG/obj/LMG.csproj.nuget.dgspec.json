@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\DeveloperDesktop\\Desktop\\github\\LMG\\LMG.csproj": {}
+    "C:\\Users\\codeday\\EBSCO\\LMG\\LMG\\LMG.csproj": {}
   },
   "projects": {
-    "C:\\Users\\DeveloperDesktop\\Desktop\\github\\LMG\\LMG.csproj": {
+    "C:\\Users\\codeday\\EBSCO\\LMG\\LMG\\LMG.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\DeveloperDesktop\\Desktop\\github\\LMG\\LMG.csproj",
+        "projectUniqueName": "C:\\Users\\codeday\\EBSCO\\LMG\\LMG\\LMG.csproj",
         "projectName": "LMG",
-        "projectPath": "C:\\Users\\DeveloperDesktop\\Desktop\\github\\LMG\\LMG.csproj",
-        "packagesPath": "C:\\Users\\DeveloperDesktop\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\DeveloperDesktop\\Desktop\\github\\LMG\\obj\\",
+        "projectPath": "C:\\Users\\codeday\\EBSCO\\LMG\\LMG\\LMG.csproj",
+        "packagesPath": "C:\\Users\\codeday\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\codeday\\EBSCO\\LMG\\LMG\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\DeveloperDesktop\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\codeday\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
