@@ -22,6 +22,8 @@ namespace LMG.DAT.Models.BookAuthor
     {
         public void Configure(EntityTypeBuilder<DC_BookAuthor> builder)
         {
+            // Relationship
+            builder.HasOne(b => b.Book).WithMany(b => b.BookAuthors);
         }
     }
 }

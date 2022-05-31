@@ -26,15 +26,17 @@ namespace LMG.DAT.Models.Author
         public List<DC_BookAuthor> BookAuthors { get; set; }
     }
 
-    
-
     public class AuthorConfiguration : IEntityTypeConfiguration<DC_Author>
     {
         public void Configure(EntityTypeBuilder<DC_Author> builder)
         {
+
             // Set Id as PKs.
             builder.ToTable("Author", "Author")
                 .HasKey(primaryKey => primaryKey.Id);
+
+            // Relationship
+            builder.HasMany(a => a.BookAuthors).WithOne(a => a.Author);
 
             // Create new Id's when new authors are added to db.
             builder.Property(m => m.Id).ValueGeneratedOnAdd();
