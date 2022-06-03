@@ -17,7 +17,7 @@ namespace LMG.DAT.Models.Member
         public string LastName { get; set; } = null!;
         public string Birthdate { get; set; } = null!;
         public string? Gender { get; set; }
-        public int Phone { get; set; }
+        public long Phone { get; set; }
 
         // Relationship
         public List<DC_Borrow> Borrows { get; set; }
