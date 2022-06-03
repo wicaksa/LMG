@@ -18,7 +18,7 @@ namespace LMG.DAT.Models.Borrow
 
         //Relationship
         public DC_Book Book { get; set; }
-        public DC_Member Members { get; set; }
+        public DC_Member? Members { get; set; }
     }
 
     public class BorrowConfiguration : IEntityTypeConfiguration<DC_Borrow>
@@ -35,6 +35,58 @@ namespace LMG.DAT.Models.Borrow
             // Column Properties
             builder.Property(m => m.Id).ValueGeneratedOnAdd();
             builder.Property(m => m.BorrowDate).HasMaxLength(16);
-        }
+
+			// Seed Data
+			builder.HasData(
+
+				new DC_Borrow
+				{
+					Id = 1,
+					BookId = 1,
+					MemberId = 1,
+					BorrowDate = "05/17/2022"
+				},
+
+				new DC_Borrow
+				{
+					Id = 2,
+					BookId = 1,
+					MemberId = 2,
+					BorrowDate = "05/12/2022"
+				},
+
+				new DC_Borrow
+				{
+					Id = 3,
+					BookId = 2,
+					MemberId = 1,
+					BorrowDate = "05/17/2022"
+				},
+
+				new DC_Borrow
+				{
+					Id = 4,
+					BookId = 3,
+					MemberId = 3,
+					BorrowDate = "05/10/2022"
+				},
+
+				new DC_Borrow
+				{
+					Id = 5,
+					BookId = 4,
+					MemberId = 1,
+					BorrowDate = "05/17/2022"
+				},
+
+				new DC_Borrow
+				{
+					Id = 6,
+					BookId = 5,
+					MemberId = 4,
+					BorrowDate = "05/09/2022"
+				}
+			);
+		}
     }
 }

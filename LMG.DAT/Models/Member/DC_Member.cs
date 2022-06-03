@@ -14,13 +14,9 @@ namespace LMG.DAT.Models.Member
 
         // Attributes 
         public string FirstName { get; set; } = null!;
-
         public string LastName { get; set; } = null!;
-
         public string Birthdate { get; set; } = null!;
-
         public string? Gender { get; set; }
-
         public int Phone { get; set; }
 
         // Relationship
@@ -47,6 +43,59 @@ namespace LMG.DAT.Models.Member
             builder.Property(m => m.LastName).HasMaxLength(256);
             builder.Property(m => m.Birthdate).HasMaxLength(16);
             builder.Property(m => m.Gender).HasMaxLength(30);
+
+            // Seed Data
+            builder.HasData(
+                new DC_Member
+                {
+                    Id = 1,
+                    FirstName = "Earl",
+                    LastName = "Stevens",
+                    Birthdate = "11/15/1967",
+                    Gender = "Male",
+                    Phone = 8312124438
+                },
+
+                new DC_Member
+                {
+                    Id = 2,
+                    FirstName = "Todd",
+                    LastName = "Shaw",
+                    Birthdate = "04/28/1966",
+                    Gender = "Male",
+                    Phone = 8315142982
+                },
+
+                new DC_Member
+                {
+                    Id = 3,
+                    FirstName = "Kimberly",
+                    LastName = "Jones",
+                    Birthdate = "07/11/1974",
+                    Gender = "Female",
+                    Phone = 8316554577
+                },
+
+                new DC_Member
+                {
+                    Id = 4,
+                    FirstName = "Khalif",
+                    LastName = "Malek",
+                    Birthdate = "07/07/1993",
+                    Gender = "Male",
+                    Phone = 8054243108
+                },
+
+                new DC_Member
+                {
+                    Id = 5,
+                    FirstName = "Amala",
+                    LastName = "Dlamini",
+                    Birthdate = "11/21/1995",
+                    Gender = "Female",
+                    Phone = 8052629749
+                }
+            );
         }
     }
 }
