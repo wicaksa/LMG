@@ -34,6 +34,41 @@ namespace LMG.DAT.Models.Review
             // Set column properties.
             builder.Property(m => m.Id).ValueGeneratedOnAdd();
             builder.Property(m => m.Review).HasMaxLength(2048);
+
+            // Seed Data
+            builder.HasData(
+                new DC_Review
+                {
+                    Id = 1,
+                    BookId = 1,
+                    MemberId = 1,
+                    Review = "This book was great."
+                },
+
+                new DC_Review
+                {
+                    Id = 2,
+                    BookId = 1,
+                    MemberId = 2,
+                    Review = "This book was bad."
+                },
+
+                new DC_Review
+                {
+                    Id = 3,
+                    BookId = 2,
+                    MemberId = 3,
+                    Review = "Amazing book!"
+                },
+
+                new DC_Review
+                {
+                    Id = 4,
+                    BookId = 4,
+                    MemberId = 4,
+                    Review = "Snooze fest."
+                }
+            );
         }
     }
 }
