@@ -1,4 +1,6 @@
-﻿using LMG.DAT.Models.Book;
+﻿using LMG.DAT.Models.Author;
+using LMG.DAT.Models.Book;
+using LMG.DAT.Models.BookAuthor;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,12 +11,8 @@ namespace LMG.DAT.UnitOfWork
 {
     public interface IGeneralUnitOfWork
     {
-        Task<AuthorBookObject> GetAuthorBook();
-    }
-
-    public class AuthorBookObject
-    {
-        public string AuthorName { get; set; }
-        public string BookName { get; set; }
+        Task<DC_Book> GetBookById(int id);
+        Task<DC_Author> GetAuthorById(int id);
+        Task<DC_BookAuthor> GetBookAuthorById(int id);
     }
 }

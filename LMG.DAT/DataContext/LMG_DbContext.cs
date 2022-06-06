@@ -29,10 +29,7 @@ namespace LMG.DAT.DataContext
 
 
         // Not sure what to do for this method so we left it empty. -WM
-        public LMG_DbContext()
-        {
-        }
-        public LMG_DbContext(DbContextOptions<LMG_DbContext> options) : base(options)
+        public LMG_DbContext(DbContextOptions options) : base(options)
         {
 
         }

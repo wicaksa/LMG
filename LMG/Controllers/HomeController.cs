@@ -26,19 +26,6 @@ namespace LMG.Controllers
             return View();
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAuthorBookObjects()
-        {
-            try
-            {
-                return Ok(await _uow.GetAuthorBook());
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
