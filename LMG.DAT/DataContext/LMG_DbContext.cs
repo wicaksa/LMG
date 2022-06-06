@@ -32,6 +32,10 @@ namespace LMG.DAT.DataContext
         public LMG_DbContext()
         {
         }
+        public LMG_DbContext(DbContextOptions<LMG_DbContext> options) : base(options)
+        {
+
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -48,6 +52,6 @@ namespace LMG.DAT.DataContext
 
         // Move this later to appsettings.json - WM
         protected override void OnConfiguring(DbContextOptionsBuilder options)
-            => options.UseSqlServer("Data Source=codeday-labs-2;Integrated Security=True");
+        { }
     }
 }

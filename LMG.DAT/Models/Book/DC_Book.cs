@@ -31,7 +31,7 @@ namespace LMG.DAT.Models.Book
 
         //Relationships
         public List<DC_Review>? Reviews { get; set; }
-        public DC_Series Serie { get; set; }
+        public DC_Series? Serie { get; set; }
         public List<DC_Borrow>? Borrows { get; set; }
         public List<DC_BookAuthor>? BookAuthors { get; set; }
     }
@@ -67,7 +67,9 @@ namespace LMG.DAT.Models.Book
                     Edition = 1,
                     Genre = "Fantasy",
                     Summary = "A boy learns on his eleventh birthday that he is the orphaned son of two powerful wizards and possesses unique magical powers of his own. He is summoned from his life as an unwanted child to become a student at Hogwarts, an English boarding school for wizards. There, he meets several friends who become his closest allies and help him discover the truth about his parents' mysterious deaths.",
-                    PublicationYear = 1997
+                    PublicationYear = 1997,
+                    CreatedBy = "Me",
+                    ModifiedBy = "Me"
                 },
 
                 new DC_Book
@@ -79,7 +81,9 @@ namespace LMG.DAT.Models.Book
                     Edition = 1,
                     Genre = "Fantasy",
                     Summary = "The second instalment of boy wizard Harry Potter's adventures at Hogwarts School of Witchcraft and Wizardry, based on the novel by JK Rowling. A mysterious elf tells Harry to expect trouble during his second year at Hogwarts, but nothing can prepare him for trees that fight back, flying cars, spiders that talk and deadly warnings written in blood on the walls of the school.",
-                    PublicationYear = 1998
+                    PublicationYear = 1998,
+                    CreatedBy = "Me",
+                    ModifiedBy = "Me"
                 },
 
                 new DC_Book
@@ -91,7 +95,9 @@ namespace LMG.DAT.Models.Book
                     Edition = 1,
                     Genre = "Fiction",
                     Summary = "The novel details two days in the life of 16-year-old Holden Caulfield after he has been expelled from prep school. Confused and disillusioned, Holden searches for truth and rails against the phoniness of the adult world.",
-                    PublicationYear = 1951
+                    PublicationYear = 1951,
+                    CreatedBy = "Me",
+                    ModifiedBy = "Me"
                 },
 
                 new DC_Book
@@ -103,7 +109,9 @@ namespace LMG.DAT.Models.Book
                     Edition = 1,
                     Genre = "Fiction",
                     Summary = "Things Fall Apart is the debut novel by Nigerian author Chinua Achebe, first published in 1958. It depicts pre-colonial life in the southeastern part of Nigeria and the invasion by Europeans during the late 19th century. ",
-                    PublicationYear = 1958
+                    PublicationYear = 1958,
+                    CreatedBy = "Me",
+                    ModifiedBy = "Me"
                 },
 
                 new DC_Book
@@ -115,7 +123,9 @@ namespace LMG.DAT.Models.Book
                     Edition = 1,
                     Genre = "Non-Fiction",
                     Summary = "Since opening Chez Panisse in 1971, Alice Waters has been a kind of living legend in the movement for local food, sustainable agriculture, and seasonal cooking. In her latest work, she recounts scenes from that career that fans of hers will enjoy while championing a slow food approach to farming and eating, with an emphasis on regenerative agriculture, biodiversity, and health.",
-                    PublicationYear = 2021
+                    PublicationYear = 2021,
+                    CreatedBy = "Me",
+                    ModifiedBy = "Me"
                 }
             );
         }
