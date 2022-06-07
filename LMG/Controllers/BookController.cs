@@ -6,13 +6,12 @@ namespace LMG.Controllers
 {
     public class BookController : Controller
     {
-        //private readonly IGeneralUnitOfWork _uow;
-        private GeneralUnitOfWork unitOfWork = new GeneralUnitOfWork();
+        private readonly IGeneralUnitOfWork _uow;
 
-        /*public BookController(IGeneralUnitOfWork uow)
+        public BookController(IGeneralUnitOfWork uow)
         {
             _uow = uow;
-        }*/
+        }
 
 
         // GET: BookController
@@ -27,7 +26,7 @@ namespace LMG.Controllers
         {
             try
             {
-                return Ok(await unitOfWork.BookRepository.GetByIdAsync(id));
+                return Ok(await _uow.BookRepository.GetByIdAsync(id));
             }
             catch (Exception ex)
             {

@@ -1,4 +1,5 @@
 ﻿using LMG.DAT.DataContext;
+using LMG.DAT.Interfaces;
 using LMG.DAT.Models.Author;
 using LMG.DAT.Models.Book;
 using LMG.DAT.Models.BookAuthor;
@@ -13,58 +14,22 @@ namespace LMG.DAT.UnitOfWork
 {
     public interface IGeneralUnitOfWork
     {
-
+        IGenericRepository<DC_Book> BookRepository { get; }
+        IGenericRepository<DC_Author> AuthorRepository { get; }
+        IGenericRepository<DC_BookAuthor> BookAuthorRepository { get; }
     }
     public class GeneralUnitOfWork : IGeneralUnitOfWork
     {
-        private LMG_DbContext context = new LMG_DbContext();
-        private GenericRepository<DC_Book> _bookRepository;
-        private GenericRepository<DC_Author> _authorRepository;
-        private GenericRepository<DC_BookAuthor> _bookAuthorRepository;
+        public IGenericRepository<DC_Book> BookRepository { get; private set; }
+        public IGenericRepository<DC_Author> AuthorRepository { get; private set; }
+        public IGenericRepository<DC_BookAuthor> BookAuthorRepository { get; private set; }
 
-        /*public GeneralUnitOfWork(GenericRepository<DC_Book> bookRepository, GenericRepository<DC_Author> authorRepository, GenericRepository<DC_BookAuthor> bookAuthorRepository)
+        public GeneralUnitOfWork(IGenericRepository<DC_Book> bookRepository, IGenericRepository<DC_Author> authorRepository, IGenericRepository<DC_BookAuthor> bookAuthorRepository)
         {
-            _bookRepository = bookRepository;
-            _authorRepository = authorRepository;
-            _bookAuthorRepository = bookAuthorRepository;
-        } */
-
-        public GenericRepository<DC_Book> BookRepository
-        {
-            get
-            {
-
-                if (this._bookRepository == null)
-                {
-                    this._bookRepository = new GenericRepository<DC_Book>(context);
-                }
-                return _bookRepository;
-            }
+            BookRepository = bookRepository;
+            AuthorRepository = authorRepository;
+            BookAuthorRepository = bookAuthorRepository;
         } 
-        public GenericRepository<DC_Author> AuthorRepository
-        {
-            get
-            {
-
-                if (this._authorRepository == null)
-                {
-                    this._authorRepository = new GenericRepository<DC_Author>(context);
-                }
-                return _authorRepository;
-            }
-        } 
-        public GenericRepository<DC_BookAuthor> BookAuthorRepository
-        {
-            get
-            {
-
-                if (this._bookAuthorRepository == null)
-                {
-                    this._bookAuthorRepository = new GenericRepository<DC_BookAuthor>(context);
-                }
-                return _bookAuthorRepository;
-            }
-        }
 
     }
 }
