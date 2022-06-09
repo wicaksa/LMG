@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "7T+t+zWY7+J3D+sUEh7GcRxtatK7yOMyMJMM2y8PMoUsrxhHAovWR8m3wxZZHEu0f26IJPGuFRrbpiJE0Q7A1g==",
+  "dgSpecHash": "/PXGO1mOfG2Uhyij04DSJDB1MPe8ZrFQOE1w+dkejXjJhl7Gs0aDMU+dobKGT8hMfLA7kbXVZbnaqgUvPo+Lhg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\codeday\\EBSCO-Folio\\Test2\\LMG\\LMG.API\\LMG.API.csproj",
+  "projectFilePath": "C:\\Users\\codeday\\EBSCO\\LMG\\LMG.API\\LMG.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\codeday\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
     "C:\\Users\\codeday\\.nuget\\packages\\microsoft.data.sqlclient\\2.1.4\\microsoft.data.sqlclient.2.1.4.nupkg.sha512",

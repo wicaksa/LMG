@@ -9,12 +9,21 @@ namespace LMG.DAT.Interfaces
 {
     public interface IGenericRepository<TDataContextObject> where TDataContextObject : DataContextBase
     {
-        void Insert();
-        Task InsertCollection();
-        Task UpdateById();
+        // Get data
         Task<ICollection<TDataContextObject>> GetAllAsync(int skip, int take);
         Task<TDataContextObject> GetByIdAsync(int id);
+
+        // Inserting data
+        void Insert(TDataContextObject obj);
+        Task InsertCollection();
+
+        // Update data
+        Task UpdateById(int id);
+        
+        // Delete data
         Task Delete(int id);
+
+        // Save
         Task SaveRepoAsync();
     }
 }

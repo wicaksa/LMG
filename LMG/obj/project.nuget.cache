@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "PmKuvavqG3NqHvhU2kcUtShAogxlXP77fLUxsIh3eibDX1InnbYCayirLh8C9r7Y76c1nwkcBTwUmRMuxc9Rig==",
+  "dgSpecHash": "Tm+sKYMGCTTTtuVPeP033T3SJCejs2Td/gwedJOoZG1SOJBhggezR83kNUOhKKEQoc0o1aDn6YwLKu0Af7llqw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\codeday\\EBSCO-Folio\\Test2\\LMG\\LMG\\LMG.csproj",
+  "projectFilePath": "C:\\Users\\codeday\\EBSCO\\LMG\\LMG\\LMG.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\codeday\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\codeday\\.nuget\\packages\\messagepack\\2.1.152\\messagepack.2.1.152.nupkg.sha512",
