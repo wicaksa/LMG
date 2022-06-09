@@ -534,6 +534,7 @@ C:\Users\codeday\EBSCO-Folio\Test2\LMG\LMG\obj\Debug\net6.0\refint\LMG.dll
 C:\Users\codeday\EBSCO-Folio\Test2\LMG\LMG\obj\Debug\net6.0\LMG.pdb
 C:\Users\codeday\EBSCO-Folio\Test2\LMG\LMG\obj\Debug\net6.0\LMG.genruntimeconfig.cache
 C:\Users\codeday\EBSCO-Folio\Test2\LMG\LMG\obj\Debug\net6.0\ref\LMG.dll
+<<<<<<< HEAD
 C:\Users\codeday\EBSCO\LMG\LMG\bin\Debug\net6.0\appsettings.Development.json
 C:\Users\codeday\EBSCO\LMG\LMG\bin\Debug\net6.0\appsettings.json
 C:\Users\codeday\EBSCO\LMG\LMG\bin\Debug\net6.0\LMG.DAT.deps.json
@@ -802,3 +803,5 @@ C:\Users\codeday\EBSCO\LMG\LMG\obj\Debug\net6.0\refint\LMG.dll
 C:\Users\codeday\EBSCO\LMG\LMG\obj\Debug\net6.0\LMG.pdb
 C:\Users\codeday\EBSCO\LMG\LMG\obj\Debug\net6.0\LMG.genruntimeconfig.cache
 C:\Users\codeday\EBSCO\LMG\LMG\obj\Debug\net6.0\ref\LMG.dll
+=======
+>>>>>>> b0778d7f45d6090132f0d8d5368b96e1ba835246

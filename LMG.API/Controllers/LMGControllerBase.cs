@@ -3,23 +3,33 @@ using LMG.DAT.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
+<<<<<<< HEAD
 // Base Controller Class
 namespace LMG.API.Controllers
 {
     // The API Route
+=======
+namespace LMG.API.Controllers
+{
+>>>>>>> b0778d7f45d6090132f0d8d5368b96e1ba835246
     [Route("api/[controller]")]
     [ApiController]
     public abstract class LMGControllerBase<TDataContext> : ControllerBase where TDataContext : DataContextBase
     {
+<<<<<<< HEAD
         // Get an instance of the generic repository
         protected readonly IGenericRepository<TDataContext> Repository;
         
         // Constructor 
+=======
+        protected readonly IGenericRepository<TDataContext> Repository;
+>>>>>>> b0778d7f45d6090132f0d8d5368b96e1ba835246
         public LMGControllerBase(IGenericRepository<TDataContext> repository)
         {
             Repository = repository;
         }
 
+<<<<<<< HEAD
         // Get all records in the db.
         [HttpGet]
         [Route("getAll")]
@@ -106,5 +116,13 @@ namespace LMG.API.Controllers
             return Ok(obj);
         }
 
+=======
+        [HttpGet]
+        [Route("Foobar/{id}")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            return Ok(await Repository.GetByIdAsync(id));
+        }
+>>>>>>> b0778d7f45d6090132f0d8d5368b96e1ba835246
     }
 }
