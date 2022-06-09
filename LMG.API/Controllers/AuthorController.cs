@@ -1,4 +1,5 @@
-﻿using LMG.DAT.Interfaces;
+﻿using LMG.API.Controllers.LMG.API.Controllers;
+using LMG.DAT.Interfaces;
 using LMG.DAT.Models.Author;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

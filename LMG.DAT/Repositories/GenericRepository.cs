@@ -34,10 +34,10 @@ namespace LMG.DAT.Repositories
             return await Context.Set<TDataContextObject>().FindAsync(id);
         }
 
-        public void Insert(TDataContextObject obj)
+        public void Insert()
         {
-            Context.Add(obj);
-            SaveRepoAsync();
+ 
+            throw new NotImplementedException();
         }
 
         public Task InsertCollection()
@@ -47,19 +47,13 @@ namespace LMG.DAT.Repositories
 
         public async Task SaveRepoAsync()
         {
-            await Context.SaveChangesAsync();
+            
+            throw new NotImplementedException();
         }
 
-        public async Task UpdateById(int id)
+        public async Task UpdateById()
         {
-            // Get object by id
-            var objToUpdate = await GetByIdAsync(id);
-
-            // Update it??
-            Context.Update(objToUpdate);
-
-            // Save it??
-            SaveRepoAsync();
+            throw new NotImplementedException();
         }
     }
 }

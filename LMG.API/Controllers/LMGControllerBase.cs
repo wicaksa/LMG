@@ -3,126 +3,135 @@ using LMG.DAT.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-<<<<<<< HEAD
+
 // Base Controller Class
 namespace LMG.API.Controllers
 {
     // The API Route
-=======
-namespace LMG.API.Controllers
-{
->>>>>>> b0778d7f45d6090132f0d8d5368b96e1ba835246
-    [Route("api/[controller]")]
-    [ApiController]
-    public abstract class LMGControllerBase<TDataContext> : ControllerBase where TDataContext : DataContextBase
+
+    namespace LMG.API.Controllers
     {
-<<<<<<< HEAD
-        // Get an instance of the generic repository
-        protected readonly IGenericRepository<TDataContext> Repository;
-        
-        // Constructor 
-=======
-        protected readonly IGenericRepository<TDataContext> Repository;
->>>>>>> b0778d7f45d6090132f0d8d5368b96e1ba835246
-        public LMGControllerBase(IGenericRepository<TDataContext> repository)
-        {
-            Repository = repository;
-        }
 
-<<<<<<< HEAD
-        // Get all records in the db.
-        [HttpGet]
-        [Route("getAll")]
-        public async Task<IActionResult> GetAll()
+        [Route("api/[controller]")]
+        [ApiController]
+        public abstract class LMGControllerBase<TDataContext> : ControllerBase where TDataContext : DataContextBase
         {
-            // Find how many rows are availabe.
-            // Put like 3 for now
-            return Ok(await Repository.GetAllAsync(0, 3));
-        }
 
-        // Get By Id Route
-        [HttpGet]
-        [Route("getById/{id}")]
-        public async Task<IActionResult> GetById(int id)
-        {
-            // Get object from the db
-            var obj = await Repository.GetByIdAsync(id);
+            // Get an instance of the generic repository
+            protected readonly IGenericRepository<TDataContext> Repository;
 
-            // If no object was pulled
-            if (obj == null)
+            // Constructor 
+
+            public LMGControllerBase(IGenericRepository<TDataContext> repository)
             {
-                // Return 400 code and put message in response body
-                return BadRequest("Id does not exist in databse.");
+                Repository = repository;
             }
 
-            // Return object 
-            return Ok(obj);
-        }
 
-        // Delete
-        [HttpDelete]
-        [Route("deleteById/{id}")]
-        public async Task<IActionResult> Delete(int id)
-        {
-            // Get obj by id
-            var obj = await Repository.GetByIdAsync(id);
-
-            // If obj doesn't exist
-            if (obj == null)
+            // Get all records in the db.
+            [HttpGet]
+            [Route("getAll")]
+            public async Task<IActionResult> GetAll()
             {
-                // Return error message
-                return BadRequest("Id does not exist in database.");
+                // Find how many rows are availabe.
+                // Put like 3 for now
+                return Ok(await Repository.GetAllAsync(0, 3));
             }
 
-            // If obj exists in db, delete it
-            await Repository.Delete(id);
-
-            // Save it 
-            await Repository.SaveRepoAsync();
-
-            return Ok(obj);
-        }
-
-        // Insert
-        //[HttpPost]
-        //[Route("api/{id}")]
-        ///public async Task<IActionResult> Add()
-        //{
-        //    Repository.Insert
-       // }
-
-        // Update
-        [HttpPut]
-        [Route("updateById/{id}")]
-        public async Task<IActionResult> Update(int id)
-        {
-            // Get obj by id
-            var obj = await Repository.GetByIdAsync(id);
-
-            // If obj doesn't exist
-            if (obj == null)
+            // Get By Id Route
+            [HttpGet]
+            [Route("getById/{id}")]
+            public async Task<IActionResult> GetById(int id)
             {
-                // Return error message
-                return BadRequest("Id does not exist in database.");
+                // Get object from the db
+                var obj = await Repository.GetByIdAsync(id);
+
+                // If no object was pulled
+                if (obj == null)
+                {
+                    // Return 400 code and put message in response body
+                    return BadRequest("Id does not exist in databse.");
+                }
+
+                // Return object 
+                return Ok(obj);
             }
 
-            // Update by Id
-            await Repository.UpdateById(id);
+            /*
+            // Delete
+            [HttpDelete]
+            [Route("deleteById/{id}")]
+            public async Task<IActionResult> Delete(int id)
+            {
+                // Get obj by id
+                var obj = await Repository.GetByIdAsync(id);
 
-            // Save
-            await Repository.SaveRepoAsync();
+                // If obj doesn't exist
+                if (obj == null)
+                {
+                    // Return error message
+                    return BadRequest("Id does not exist in database.");
+                }
 
-            // Return
-            return Ok(obj);
+                // If obj exists in db, delete it
+                await Repository.Delete(id);
+
+                // Save it 
+                await Repository.SaveRepoAsync();
+
+                return Ok(obj);
+            }
+
+            */
+
+            // Insert
+            //[HttpPost]
+            //[Route("api/{id}")]
+            ///public async Task<IActionResult> Add()
+            //{
+            //    Repository.Insert
+            // }
+
+            // Update
+            /*
+            [HttpPut]
+            [Route("updateById/{id}")]
+            public async Task<IActionResult> Update(int id)
+            {
+                // Get obj by id
+                var obj = await Repository.GetByIdAsync(id);
+
+                // If obj doesn't exist
+                if (obj == null)
+                {
+                    // Return error message
+                    return BadRequest("Id does not exist in database.");
+                }
+
+                // Update by Id
+                await Repository.UpdateById(id);
+
+                // Save
+                await Repository.SaveRepoAsync();
+
+                // Return
+                return Ok(obj);
+            }
+
+            */
+
+
+            /*
+             * 
+            [HttpGet]
+            [Route("Foobar/{id}")]
+            public async Task<IActionResult> GetById(int id)
+            {
+                return Ok(await Repository.GetByIdAsync(id));
+            }
+
+                */
+
         }
-
-=======
-        [HttpGet]
-        [Route("Foobar/{id}")]
-        public async Task<IActionResult> GetById(int id)
-        {
-            return Ok(await Repository.GetByIdAsync(id));
-        }
->>>>>>> b0778d7f45d6090132f0d8d5368b96e1ba835246
     }
 }

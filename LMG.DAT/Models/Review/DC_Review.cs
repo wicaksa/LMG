@@ -1,4 +1,5 @@
 ﻿using LMG.DAT.Models.Book;
+using LMG.DAT.Models.Member;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -18,6 +19,7 @@ namespace LMG.DAT.Models.Review
 
         // Relationship
         public DC_Book Book { get; set; }
+        public DC_Member Member { get; set; }
     }
 
     public class ReviewConfiguration : IEntityTypeConfiguration<DC_Review>

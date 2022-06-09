@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace LMG.DAT.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -20,6 +20,9 @@ namespace LMG.DAT.Migrations
 
             migrationBuilder.EnsureSchema(
                 name: "Member");
+
+            migrationBuilder.EnsureSchema(
+                name: "Reservation");
 
             migrationBuilder.EnsureSchema(
                 name: "Review");
@@ -100,12 +103,11 @@ namespace LMG.DAT.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(1024)", maxLength: 1024, nullable: false),
                     Copies = table.Column<int>(type: "int", nullable: false),
-                    Series = table.Column<string>(type: "nvarchar(1024)", maxLength: 1024, nullable: true),
+                    SerieId = table.Column<int>(type: "int", nullable: true),
                     Edition = table.Column<int>(type: "int", nullable: false),
                     Genre = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true),
                     Summary = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: true),
                     PublicationYear = table.Column<int>(type: "int", nullable: false),
-                    SerieId = table.Column<int>(type: "int", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ModifiedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -163,8 +165,10 @@ namespace LMG.DAT.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     BookId = table.Column<int>(type: "int", nullable: false),
                     MemberId = table.Column<int>(type: "int", nullable: false),
-                    BorrowDate = table.Column<string>(type: "nvarchar(16)", maxLength: 16, nullable: false),
-                    MembersId = table.Column<int>(type: "int", nullable: true),
+                    BorrowDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DueDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ReturnDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Status = table.Column<string>(type: "nvarchar(16)", maxLength: 16, nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ModifiedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -181,11 +185,49 @@ namespace LMG.DAT.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Borrow_Member_MembersId",
-                        column: x => x.MembersId,
+                        name: "FK_Borrow_Member_MemberId",
+                        column: x => x.MemberId,
                         principalSchema: "Member",
                         principalTable: "Member",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Reservation",
+                schema: "Reservation",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    BookId = table.Column<int>(type: "int", nullable: false),
+                    MemberId = table.Column<int>(type: "int", nullable: false),
+                    ReservationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ReservationExpirationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ReservationStatus = table.Column<bool>(type: "bit", nullable: false),
+                    ReservationResult = table.Column<string>(type: "nvarchar(16)", maxLength: 16, nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ModifiedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Reservation", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Reservation_Book_BookId",
+                        column: x => x.BookId,
+                        principalSchema: "Book",
+                        principalTable: "Book",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Reservation_Member_MemberId",
+                        column: x => x.MemberId,
+                        principalSchema: "Member",
+                        principalTable: "Member",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -213,6 +255,13 @@ namespace LMG.DAT.Migrations
                         principalTable: "Book",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Review_Member_MemberId",
+                        column: x => x.MemberId,
+                        principalSchema: "Member",
+                        principalTable: "Member",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
@@ -230,14 +279,12 @@ namespace LMG.DAT.Migrations
             migrationBuilder.InsertData(
                 schema: "Book",
                 table: "Book",
-                columns: new[] { "Id", "Copies", "CreatedAt", "CreatedBy", "Edition", "Genre", "ModifiedAt", "ModifiedBy", "PublicationYear", "SerieId", "Series", "Summary", "Title" },
+                columns: new[] { "Id", "Copies", "CreatedAt", "CreatedBy", "Edition", "Genre", "ModifiedAt", "ModifiedBy", "PublicationYear", "SerieId", "Summary", "Title" },
                 values: new object[,]
                 {
-                    { 1, 3, null, "Me", 1, "Fantasy", null, "Me", 1997, null, "Harry Potter", "A boy learns on his eleventh birthday that he is the orphaned son of two powerful wizards and possesses unique magical powers of his own. He is summoned from his life as an unwanted child to become a student at Hogwarts, an English boarding school for wizards. There, he meets several friends who become his closest allies and help him discover the truth about his parents' mysterious deaths.", "Harry Potter & The Socerer's Stone" },
-                    { 2, 3, null, "Me", 1, "Fantasy", null, "Me", 1998, null, "Harry Potter", "The second instalment of boy wizard Harry Potter's adventures at Hogwarts School of Witchcraft and Wizardry, based on the novel by JK Rowling. A mysterious elf tells Harry to expect trouble during his second year at Hogwarts, but nothing can prepare him for trees that fight back, flying cars, spiders that talk and deadly warnings written in blood on the walls of the school.", "Harry Potter and the Chamber of Secrets" },
-                    { 3, 5, null, "Me", 1, "Fiction", null, "Me", 1951, null, "N/A", "The novel details two days in the life of 16-year-old Holden Caulfield after he has been expelled from prep school. Confused and disillusioned, Holden searches for truth and rails against the phoniness of the adult world.", "The Catcher in the Rye" },
-                    { 4, 5, null, "Me", 1, "Fiction", null, "Me", 1958, null, "N/A", "Things Fall Apart is the debut novel by Nigerian author Chinua Achebe, first published in 1958. It depicts pre-colonial life in the southeastern part of Nigeria and the invasion by Europeans during the late 19th century. ", "Things Fall Apart" },
-                    { 5, 2, null, "Me", 1, "Non-Fiction", null, "Me", 2021, null, "N/A", "Since opening Chez Panisse in 1971, Alice Waters has been a kind of living legend in the movement for local food, sustainable agriculture, and seasonal cooking. In her latest work, she recounts scenes from that career that fans of hers will enjoy while championing a slow food approach to farming and eating, with an emphasis on regenerative agriculture, biodiversity, and health.", "We Are What We Eat: A Slow Food Manifesto" }
+                    { 3, 5, null, "Me", 1, "Fiction", null, "Me", 1951, null, "The novel details two days in the life of 16-year-old Holden Caulfield after he has been expelled from prep school. Confused and disillusioned, Holden searches for truth and rails against the phoniness of the adult world.", "The Catcher in the Rye" },
+                    { 4, 5, null, "Me", 1, "Fiction", null, "Me", 1958, null, "Things Fall Apart is the debut novel by Nigerian author Chinua Achebe, first published in 1958. It depicts pre-colonial life in the southeastern part of Nigeria and the invasion by Europeans during the late 19th century. ", "Things Fall Apart" },
+                    { 5, 2, null, "Me", 1, "Non-Fiction", null, "Me", 2021, null, "Since opening Chez Panisse in 1971, Alice Waters has been a kind of living legend in the movement for local food, sustainable agriculture, and seasonal cooking. In her latest work, she recounts scenes from that career that fans of hers will enjoy while championing a slow food approach to farming and eating, with an emphasis on regenerative agriculture, biodiversity, and health.", "We Are What We Eat: A Slow Food Manifesto" }
                 });
 
             migrationBuilder.InsertData(
@@ -260,12 +307,20 @@ namespace LMG.DAT.Migrations
                 values: new object[] { 1, 1, null, null, null, null, "Harry Potter", 7 });
 
             migrationBuilder.InsertData(
+                schema: "Book",
+                table: "Book",
+                columns: new[] { "Id", "Copies", "CreatedAt", "CreatedBy", "Edition", "Genre", "ModifiedAt", "ModifiedBy", "PublicationYear", "SerieId", "Summary", "Title" },
+                values: new object[,]
+                {
+                    { 1, 3, null, "Me", 1, "Fantasy", null, "Me", 1997, 1, "A boy learns on his eleventh birthday that he is the orphaned son of two powerful wizards and possesses unique magical powers of his own. He is summoned from his life as an unwanted child to become a student at Hogwarts, an English boarding school for wizards. There, he meets several friends who become his closest allies and help him discover the truth about his parents' mysterious deaths.", "Harry Potter & The Socerer's Stone" },
+                    { 2, 3, null, "Me", 1, "Fantasy", null, "Me", 1998, 1, "The second instalment of boy wizard Harry Potter's adventures at Hogwarts School of Witchcraft and Wizardry, based on the novel by JK Rowling. A mysterious elf tells Harry to expect trouble during his second year at Hogwarts, but nothing can prepare him for trees that fight back, flying cars, spiders that talk and deadly warnings written in blood on the walls of the school.", "Harry Potter and the Chamber of Secrets" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "BookAuthor",
                 columns: new[] { "Id", "AuthorId", "BookId", "CreatedAt", "CreatedBy", "ModifiedAt", "ModifiedBy" },
                 values: new object[,]
                 {
-                    { 1, 1, 1, null, null, null, null },
-                    { 2, 1, 2, null, null, null, null },
                     { 3, 2, 3, null, null, null, null },
                     { 4, 3, 4, null, null, null, null },
                     { 5, 4, 5, null, null, null, null }
@@ -274,15 +329,59 @@ namespace LMG.DAT.Migrations
             migrationBuilder.InsertData(
                 schema: "Borrow",
                 table: "Borrow",
-                columns: new[] { "Id", "BookId", "BorrowDate", "CreatedAt", "CreatedBy", "MemberId", "MembersId", "ModifiedAt", "ModifiedBy" },
+                columns: new[] { "Id", "BookId", "BorrowDate", "CreatedAt", "CreatedBy", "DueDate", "MemberId", "ModifiedAt", "ModifiedBy", "ReturnDate", "Status" },
                 values: new object[,]
                 {
-                    { 1, 1, "05/17/2022", null, null, 1, null, null, null },
-                    { 2, 1, "05/12/2022", null, null, 2, null, null, null },
-                    { 3, 2, "05/17/2022", null, null, 1, null, null, null },
-                    { 4, 3, "05/10/2022", null, null, 3, null, null, null },
-                    { 5, 4, "05/17/2022", null, null, 1, null, null, null },
-                    { 6, 5, "05/09/2022", null, null, 4, null, null, null }
+                    { 4, 3, new DateTime(2022, 1, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, null, null, new DateTime(2022, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "Returned" },
+                    { 5, 4, new DateTime(2022, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, null, null, new DateTime(2022, 1, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), "Good" },
+                    { 6, 5, new DateTime(2021, 12, 26, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 4, null, null, new DateTime(2022, 1, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), "Overdue" }
+                });
+
+            migrationBuilder.InsertData(
+                schema: "Reservation",
+                table: "Reservation",
+                columns: new[] { "Id", "BookId", "CreatedAt", "CreatedBy", "MemberId", "ModifiedAt", "ModifiedBy", "ReservationDate", "ReservationExpirationDate", "ReservationResult", "ReservationStatus" },
+                values: new object[,]
+                {
+                    { 3, 4, null, null, 2, null, null, new DateTime(2022, 1, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2022, 1, 17, 0, 0, 0, 0, DateTimeKind.Unspecified), "Borrow", false },
+                    { 4, 3, null, null, 3, null, null, new DateTime(2022, 1, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2022, 1, 16, 0, 0, 0, 0, DateTimeKind.Unspecified), null, true }
+                });
+
+            migrationBuilder.InsertData(
+                schema: "Review",
+                table: "Review",
+                columns: new[] { "Id", "BookId", "CreatedAt", "CreatedBy", "MemberId", "ModifiedAt", "ModifiedBy", "Review" },
+                values: new object[] { 4, 4, null, null, 4, null, null, "Snooze fest." });
+
+            migrationBuilder.InsertData(
+                table: "BookAuthor",
+                columns: new[] { "Id", "AuthorId", "BookId", "CreatedAt", "CreatedBy", "ModifiedAt", "ModifiedBy" },
+                values: new object[,]
+                {
+                    { 1, 1, 1, null, null, null, null },
+                    { 2, 1, 2, null, null, null, null }
+                });
+
+            migrationBuilder.InsertData(
+                schema: "Borrow",
+                table: "Borrow",
+                columns: new[] { "Id", "BookId", "BorrowDate", "CreatedAt", "CreatedBy", "DueDate", "MemberId", "ModifiedAt", "ModifiedBy", "ReturnDate", "Status" },
+                values: new object[,]
+                {
+                    { 1, 1, new DateTime(2022, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, null, null, new DateTime(2022, 1, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), "Good" },
+                    { 2, 1, new DateTime(2022, 1, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, null, null, new DateTime(2022, 1, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), "Good" },
+                    { 3, 2, new DateTime(2022, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, null, null, new DateTime(2022, 1, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), "Good" }
+                });
+
+            migrationBuilder.InsertData(
+                schema: "Reservation",
+                table: "Reservation",
+                columns: new[] { "Id", "BookId", "CreatedAt", "CreatedBy", "MemberId", "ModifiedAt", "ModifiedBy", "ReservationDate", "ReservationExpirationDate", "ReservationResult", "ReservationStatus" },
+                values: new object[,]
+                {
+                    { 1, 2, null, null, 1, null, null, new DateTime(2022, 1, 6, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2022, 1, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), null, true },
+                    { 2, 2, null, null, 3, null, null, new DateTime(2022, 1, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2022, 1, 19, 0, 0, 0, 0, DateTimeKind.Unspecified), "Cancel", false },
+                    { 5, 2, null, null, 5, null, null, new DateTime(2022, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2022, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), null, true }
                 });
 
             migrationBuilder.InsertData(
@@ -293,8 +392,7 @@ namespace LMG.DAT.Migrations
                 {
                     { 1, 1, null, null, 1, null, null, "This book was great." },
                     { 2, 1, null, null, 2, null, null, "This book was bad." },
-                    { 3, 2, null, null, 3, null, null, "Amazing book!" },
-                    { 4, 4, null, null, 4, null, null, "Snooze fest." }
+                    { 3, 2, null, null, 3, null, null, "Amazing book!" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -320,16 +418,34 @@ namespace LMG.DAT.Migrations
                 column: "BookId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Borrow_MembersId",
+                name: "IX_Borrow_MemberId",
                 schema: "Borrow",
                 table: "Borrow",
-                column: "MembersId");
+                column: "MemberId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reservation_BookId",
+                schema: "Reservation",
+                table: "Reservation",
+                column: "BookId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reservation_MemberId",
+                schema: "Reservation",
+                table: "Reservation",
+                column: "MemberId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Review_BookId",
                 schema: "Review",
                 table: "Review",
                 column: "BookId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Review_MemberId",
+                schema: "Review",
+                table: "Review",
+                column: "MemberId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -342,6 +458,10 @@ namespace LMG.DAT.Migrations
                 schema: "Borrow");
 
             migrationBuilder.DropTable(
+                name: "Reservation",
+                schema: "Reservation");
+
+            migrationBuilder.DropTable(
                 name: "Review",
                 schema: "Review");
 
@@ -350,12 +470,12 @@ namespace LMG.DAT.Migrations
                 schema: "Author");
 
             migrationBuilder.DropTable(
-                name: "Member",
-                schema: "Member");
-
-            migrationBuilder.DropTable(
                 name: "Book",
                 schema: "Book");
+
+            migrationBuilder.DropTable(
+                name: "Member",
+                schema: "Member");
 
             migrationBuilder.DropTable(
                 name: "Series",

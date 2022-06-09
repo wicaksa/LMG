@@ -14,11 +14,11 @@ namespace LMG.DAT.Interfaces
         Task<TDataContextObject> GetByIdAsync(int id);
 
         // Inserting data
-        void Insert(TDataContextObject obj);
+        void Insert();
         Task InsertCollection();
 
         // Update data
-        Task UpdateById(int id);
+        Task UpdateById();
         
         // Delete data
         Task Delete(int id);

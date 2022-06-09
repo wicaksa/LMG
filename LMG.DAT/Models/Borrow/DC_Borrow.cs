@@ -14,11 +14,14 @@ namespace LMG.DAT.Models.Borrow
     {
         public int BookId { get; set; }
         public int MemberId { get; set; }
-        public string BorrowDate { get; set; }
+        public DateTime BorrowDate { get; set; }
+		public DateTime DueDate { get; set; }	
+		public DateTime? ReturnDate { get; set; }
+		public String Status { get; set; }
 
         //Relationship
         public DC_Book Book { get; set; }
-        public DC_Member? Members { get; set; }
+        public DC_Member Member { get; set; }
     }
 
     public class BorrowConfiguration : IEntityTypeConfiguration<DC_Borrow>
@@ -34,7 +37,7 @@ namespace LMG.DAT.Models.Borrow
 
             // Column Properties
             builder.Property(m => m.Id).ValueGeneratedOnAdd();
-            builder.Property(m => m.BorrowDate).HasMaxLength(16);
+			builder.Property(m => m.Status).HasMaxLength(16); // "Good" , "Overdue", "Returned"
 
 			// Seed Data
 			builder.HasData(
@@ -44,7 +47,9 @@ namespace LMG.DAT.Models.Borrow
 					Id = 1,
 					BookId = 1,
 					MemberId = 1,
-					BorrowDate = "05/17/2022"
+					BorrowDate = new DateTime(2022, 1, 1),
+					ReturnDate = new DateTime(2022, 1, 8),
+					Status = "Good"
 				},
 
 				new DC_Borrow
@@ -52,7 +57,9 @@ namespace LMG.DAT.Models.Borrow
 					Id = 2,
 					BookId = 1,
 					MemberId = 2,
-					BorrowDate = "05/12/2022"
+					BorrowDate = new DateTime(2022, 1, 2),
+					ReturnDate = new DateTime(2022, 1, 9),
+					Status = "Good"
 				},
 
 				new DC_Borrow
@@ -60,7 +67,9 @@ namespace LMG.DAT.Models.Borrow
 					Id = 3,
 					BookId = 2,
 					MemberId = 1,
-					BorrowDate = "05/17/2022"
+					BorrowDate = new DateTime(2022, 1, 1),
+					ReturnDate = new DateTime(2022, 1, 8),
+					Status = "Good"
 				},
 
 				new DC_Borrow
@@ -68,7 +77,9 @@ namespace LMG.DAT.Models.Borrow
 					Id = 4,
 					BookId = 3,
 					MemberId = 3,
-					BorrowDate = "05/10/2022"
+					BorrowDate = new DateTime(2022, 1, 3),
+					ReturnDate = new DateTime(2022, 1, 10),
+					Status = "Returned"
 				},
 
 				new DC_Borrow
@@ -76,7 +87,9 @@ namespace LMG.DAT.Models.Borrow
 					Id = 5,
 					BookId = 4,
 					MemberId = 1,
-					BorrowDate = "05/17/2022"
+					BorrowDate = new DateTime(2022, 1, 1),
+					ReturnDate = new DateTime(2022, 1, 8),
+					Status = "Good"
 				},
 
 				new DC_Borrow
@@ -84,9 +97,11 @@ namespace LMG.DAT.Models.Borrow
 					Id = 6,
 					BookId = 5,
 					MemberId = 4,
-					BorrowDate = "05/09/2022"
+					BorrowDate = new DateTime(2021, 12, 26),
+					ReturnDate = new DateTime(2022, 1, 3),
+					Status = "Overdue"
 				}
-			);
+			); ;
 		}
     }
 }

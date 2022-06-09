@@ -1,4 +1,5 @@
 ﻿using LMG.DAT.Models.Borrow;
+using LMG.DAT.Models.Reservation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -22,6 +23,8 @@ namespace LMG.DAT.Models.Member
         // Relationship
         public List<DC_Borrow> Borrows { get; set; }
 
+        public List <DC_Reservation> Reservations { get; set; }
+
     }
 
     public class MemberConfiguration : IEntityTypeConfiguration<DC_Member>
@@ -33,7 +36,8 @@ namespace LMG.DAT.Models.Member
                 .HasKey(primaryKey => primaryKey.Id);
 
             // Relationship.
-            builder.HasMany(m => m.Borrows).WithOne(m => m.Members);
+            builder.HasMany(m => m.Borrows).WithOne(m => m.Member);
+            builder.HasMany(m => m.Reservations).WithOne(m => m.Member);
 
             // Generate new Id's when new members are added to db.
             builder.Property(m => m.Id).ValueGeneratedOnAdd(); 

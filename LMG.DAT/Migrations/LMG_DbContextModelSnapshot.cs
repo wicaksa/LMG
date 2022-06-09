@@ -150,10 +150,6 @@ namespace LMG.DAT.Migrations
                     b.Property<int?>("SerieId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Series")
-                        .HasMaxLength(1024)
-                        .HasColumnType("nvarchar(1024)");
-
                     b.Property<string>("Summary")
                         .HasMaxLength(2048)
                         .HasColumnType("nvarchar(2048)");
@@ -179,7 +175,7 @@ namespace LMG.DAT.Migrations
                             Genre = "Fantasy",
                             ModifiedBy = "Me",
                             PublicationYear = 1997,
-                            Series = "Harry Potter",
+                            SerieId = 1,
                             Summary = "A boy learns on his eleventh birthday that he is the orphaned son of two powerful wizards and possesses unique magical powers of his own. He is summoned from his life as an unwanted child to become a student at Hogwarts, an English boarding school for wizards. There, he meets several friends who become his closest allies and help him discover the truth about his parents' mysterious deaths.",
                             Title = "Harry Potter & The Socerer's Stone"
                         },
@@ -192,7 +188,7 @@ namespace LMG.DAT.Migrations
                             Genre = "Fantasy",
                             ModifiedBy = "Me",
                             PublicationYear = 1998,
-                            Series = "Harry Potter",
+                            SerieId = 1,
                             Summary = "The second instalment of boy wizard Harry Potter's adventures at Hogwarts School of Witchcraft and Wizardry, based on the novel by JK Rowling. A mysterious elf tells Harry to expect trouble during his second year at Hogwarts, but nothing can prepare him for trees that fight back, flying cars, spiders that talk and deadly warnings written in blood on the walls of the school.",
                             Title = "Harry Potter and the Chamber of Secrets"
                         },
@@ -205,7 +201,6 @@ namespace LMG.DAT.Migrations
                             Genre = "Fiction",
                             ModifiedBy = "Me",
                             PublicationYear = 1951,
-                            Series = "N/A",
                             Summary = "The novel details two days in the life of 16-year-old Holden Caulfield after he has been expelled from prep school. Confused and disillusioned, Holden searches for truth and rails against the phoniness of the adult world.",
                             Title = "The Catcher in the Rye"
                         },
@@ -218,7 +213,6 @@ namespace LMG.DAT.Migrations
                             Genre = "Fiction",
                             ModifiedBy = "Me",
                             PublicationYear = 1958,
-                            Series = "N/A",
                             Summary = "Things Fall Apart is the debut novel by Nigerian author Chinua Achebe, first published in 1958. It depicts pre-colonial life in the southeastern part of Nigeria and the invasion by Europeans during the late 19th century. ",
                             Title = "Things Fall Apart"
                         },
@@ -231,7 +225,6 @@ namespace LMG.DAT.Migrations
                             Genre = "Non-Fiction",
                             ModifiedBy = "Me",
                             PublicationYear = 2021,
-                            Series = "N/A",
                             Summary = "Since opening Chez Panisse in 1971, Alice Waters has been a kind of living legend in the movement for local food, sustainable agriculture, and seasonal cooking. In her latest work, she recounts scenes from that career that fans of hers will enjoy while championing a slow food approach to farming and eating, with an emphasis on regenerative agriculture, biodiversity, and health.",
                             Title = "We Are What We Eat: A Slow Food Manifesto"
                         });
@@ -315,10 +308,8 @@ namespace LMG.DAT.Migrations
                     b.Property<int>("BookId")
                         .HasColumnType("int");
 
-                    b.Property<string>("BorrowDate")
-                        .IsRequired()
-                        .HasMaxLength(16)
-                        .HasColumnType("nvarchar(16)");
+                    b.Property<DateTime>("BorrowDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -326,10 +317,10 @@ namespace LMG.DAT.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("MemberId")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("DueDate")
+                        .HasColumnType("datetime2");
 
-                    b.Property<int?>("MembersId")
+                    b.Property<int>("MemberId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("ModifiedAt")
@@ -338,11 +329,19 @@ namespace LMG.DAT.Migrations
                     b.Property<string>("ModifiedBy")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime?>("ReturnDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(16)
+                        .HasColumnType("nvarchar(16)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("BookId");
 
-                    b.HasIndex("MembersId");
+                    b.HasIndex("MemberId");
 
                     b.ToTable("Borrow", "Borrow");
 
@@ -351,43 +350,61 @@ namespace LMG.DAT.Migrations
                         {
                             Id = 1,
                             BookId = 1,
-                            BorrowDate = "05/17/2022",
-                            MemberId = 1
+                            BorrowDate = new DateTime(2022, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DueDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            MemberId = 1,
+                            ReturnDate = new DateTime(2022, 1, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = "Good"
                         },
                         new
                         {
                             Id = 2,
                             BookId = 1,
-                            BorrowDate = "05/12/2022",
-                            MemberId = 2
+                            BorrowDate = new DateTime(2022, 1, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DueDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            MemberId = 2,
+                            ReturnDate = new DateTime(2022, 1, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = "Good"
                         },
                         new
                         {
                             Id = 3,
                             BookId = 2,
-                            BorrowDate = "05/17/2022",
-                            MemberId = 1
+                            BorrowDate = new DateTime(2022, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DueDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            MemberId = 1,
+                            ReturnDate = new DateTime(2022, 1, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = "Good"
                         },
                         new
                         {
                             Id = 4,
                             BookId = 3,
-                            BorrowDate = "05/10/2022",
-                            MemberId = 3
+                            BorrowDate = new DateTime(2022, 1, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DueDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            MemberId = 3,
+                            ReturnDate = new DateTime(2022, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = "Returned"
                         },
                         new
                         {
                             Id = 5,
                             BookId = 4,
-                            BorrowDate = "05/17/2022",
-                            MemberId = 1
+                            BorrowDate = new DateTime(2022, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DueDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            MemberId = 1,
+                            ReturnDate = new DateTime(2022, 1, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = "Good"
                         },
                         new
                         {
                             Id = 6,
                             BookId = 5,
-                            BorrowDate = "05/09/2022",
-                            MemberId = 4
+                            BorrowDate = new DateTime(2021, 12, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DueDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            MemberId = 4,
+                            ReturnDate = new DateTime(2022, 1, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = "Overdue"
                         });
                 });
 
@@ -485,6 +502,103 @@ namespace LMG.DAT.Migrations
                         });
                 });
 
+            modelBuilder.Entity("LMG.DAT.Models.Reservation.DC_Reservation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("BookId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("MemberId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("ModifiedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ReservationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("ReservationExpirationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ReservationResult")
+                        .HasMaxLength(16)
+                        .HasColumnType("nvarchar(16)");
+
+                    b.Property<bool>("ReservationStatus")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BookId");
+
+                    b.HasIndex("MemberId");
+
+                    b.ToTable("Reservation", "Reservation");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            BookId = 2,
+                            MemberId = 1,
+                            ReservationDate = new DateTime(2022, 1, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ReservationExpirationDate = new DateTime(2022, 1, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ReservationStatus = true
+                        },
+                        new
+                        {
+                            Id = 2,
+                            BookId = 2,
+                            MemberId = 3,
+                            ReservationDate = new DateTime(2022, 1, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ReservationExpirationDate = new DateTime(2022, 1, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ReservationResult = "Cancel",
+                            ReservationStatus = false
+                        },
+                        new
+                        {
+                            Id = 3,
+                            BookId = 4,
+                            MemberId = 2,
+                            ReservationDate = new DateTime(2022, 1, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ReservationExpirationDate = new DateTime(2022, 1, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ReservationResult = "Borrow",
+                            ReservationStatus = false
+                        },
+                        new
+                        {
+                            Id = 4,
+                            BookId = 3,
+                            MemberId = 3,
+                            ReservationDate = new DateTime(2022, 1, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ReservationExpirationDate = new DateTime(2022, 1, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ReservationStatus = true
+                        },
+                        new
+                        {
+                            Id = 5,
+                            BookId = 2,
+                            MemberId = 5,
+                            ReservationDate = new DateTime(2022, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ReservationExpirationDate = new DateTime(2022, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ReservationStatus = true
+                        });
+                });
+
             modelBuilder.Entity("LMG.DAT.Models.Review.DC_Review", b =>
                 {
                     b.Property<int>("Id")
@@ -519,6 +633,8 @@ namespace LMG.DAT.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("BookId");
+
+                    b.HasIndex("MemberId");
 
                     b.ToTable("Review", "Review");
 
@@ -634,13 +750,34 @@ namespace LMG.DAT.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("LMG.DAT.Models.Member.DC_Member", "Members")
+                    b.HasOne("LMG.DAT.Models.Member.DC_Member", "Member")
                         .WithMany("Borrows")
-                        .HasForeignKey("MembersId");
+                        .HasForeignKey("MemberId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Book");
 
-                    b.Navigation("Members");
+                    b.Navigation("Member");
+                });
+
+            modelBuilder.Entity("LMG.DAT.Models.Reservation.DC_Reservation", b =>
+                {
+                    b.HasOne("LMG.DAT.Models.Book.DC_Book", "Book")
+                        .WithMany("Reservations")
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("LMG.DAT.Models.Member.DC_Member", "Member")
+                        .WithMany("Reservations")
+                        .HasForeignKey("MemberId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Book");
+
+                    b.Navigation("Member");
                 });
 
             modelBuilder.Entity("LMG.DAT.Models.Review.DC_Review", b =>
@@ -651,7 +788,15 @@ namespace LMG.DAT.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("LMG.DAT.Models.Member.DC_Member", "Member")
+                        .WithMany()
+                        .HasForeignKey("MemberId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Book");
+
+                    b.Navigation("Member");
                 });
 
             modelBuilder.Entity("LMG.DAT.Models.Author.DC_Author", b =>
@@ -665,12 +810,16 @@ namespace LMG.DAT.Migrations
 
                     b.Navigation("Borrows");
 
+                    b.Navigation("Reservations");
+
                     b.Navigation("Reviews");
                 });
 
             modelBuilder.Entity("LMG.DAT.Models.Member.DC_Member", b =>
                 {
                     b.Navigation("Borrows");
+
+                    b.Navigation("Reservations");
                 });
 
             modelBuilder.Entity("LMG.DAT.Models.Series.DC_Series", b =>
