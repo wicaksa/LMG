@@ -18,10 +18,15 @@ namespace LMG.DAT.Repositories
             Context = context;
         }
 
+        // DELETE
         public async Task Delete(int id)
         {
+            // Get the object by id
             var objToUpdate = await GetByIdAsync(id);
+            // Remove the object --> Make sure to check for null value in LMGControllerBase
             Context.Set<TDataContextObject>().Remove(objToUpdate);
+            // Save changes
+            SaveRepoAsync();
         }
 
         public async Task<ICollection<TDataContextObject>> GetAllAsync(int skip, int take)
@@ -34,10 +39,11 @@ namespace LMG.DAT.Repositories
             return await Context.Set<TDataContextObject>().FindAsync(id);
         }
 
-        public void Insert()
+        public async Task<ICollection<TDataContextObject>> Insert(TDataContextObject obj)
         {
- 
-            throw new NotImplementedException();
+            Context.Add(obj);
+            await SaveRepoAsync();
+            return await Context.Set<TDataContextObject>().ToListAsync();
         }
 
         public Task InsertCollection()
@@ -45,15 +51,27 @@ namespace LMG.DAT.Repositories
             throw new NotImplementedException();
         }
 
+        // SAVE 
         public async Task SaveRepoAsync()
-        {
-            
-            throw new NotImplementedException();
+        { 
+            await Context.SaveChangesAsync();
         }
 
-        public async Task UpdateById()
+        // UPDATE
+        public async Task UpdateById(int id)
         {
-            throw new NotImplementedException();
+            // Get the object by id
+            // var objToUpdate = await GetByIdAsync(id);
+            // Update the object
+            // Context.Set<TDataContextObject>().Update(objToUpdate);
+
+            var objToUpdate = await GetByIdAsync(id);
+
+            Context.Set<TDataContextObject>().Attach(objToUpdate);
+            Context.Entry(objToUpdate).State = EntityState.Modified;
+            // Save changes
+
+            await SaveRepoAsync();
         }
     }
 }

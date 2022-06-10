@@ -21,12 +21,10 @@ namespace LMG.API.Controllers
             protected readonly IGenericRepository<TDataContext> Repository;
 
             // Constructor 
-
             public LMGControllerBase(IGenericRepository<TDataContext> repository)
             {
                 Repository = repository;
             }
-
 
             // Get all records in the db.
             [HttpGet]
@@ -56,8 +54,7 @@ namespace LMG.API.Controllers
                 // Return object 
                 return Ok(obj);
             }
-
-            /*
+            
             // Delete
             [HttpDelete]
             [Route("deleteById/{id}")]
@@ -82,18 +79,17 @@ namespace LMG.API.Controllers
                 return Ok(obj);
             }
 
-            */
-
             // Insert
-            //[HttpPost]
-            //[Route("api/{id}")]
-            ///public async Task<IActionResult> Add()
-            //{
-            //    Repository.Insert
-            // }
+            [HttpPost]
+            [Route("insert")]
+            public async Task<IActionResult> Add(TDataContext obj)
+            {
+                await Repository.Insert(obj);
+                Repository.SaveRepoAsync();
+                return Ok(obj);
+            }
 
             // Update
-            /*
             [HttpPut]
             [Route("updateById/{id}")]
             public async Task<IActionResult> Update(int id)
@@ -111,27 +107,9 @@ namespace LMG.API.Controllers
                 // Update by Id
                 await Repository.UpdateById(id);
 
-                // Save
-                await Repository.SaveRepoAsync();
-
                 // Return
                 return Ok(obj);
             }
-
-            */
-
-
-            /*
-             * 
-            [HttpGet]
-            [Route("Foobar/{id}")]
-            public async Task<IActionResult> GetById(int id)
-            {
-                return Ok(await Repository.GetByIdAsync(id));
-            }
-
-                */
-
         }
     }
 }
