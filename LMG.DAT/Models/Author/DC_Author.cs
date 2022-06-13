@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,18 +13,18 @@ namespace LMG.DAT.Models.Author
     public class DC_Author : DataContextBase
     {
         // Attributes
-        public string FirstName { get; set; } = null!;
+        public string FirstName { get; set; }
 
-        public string LastName { get; set; } = null!;
+        public string LastName { get; set; } 
 
         public string? Description { get; set; }
 
-        public string Dob { get; set; } = null!; // Date of birth
+        public string Dob { get; set; } // Date of birth
 
         public string? Dod { get; set; } // Date of death
 
         // Relationships
-        public List<DC_BookAuthor> BookAuthors { get; set; }
+        // Original: public List<DC_BookAuthor> BookAuthors { get; set; }
     }
 
     public class AuthorConfiguration : IEntityTypeConfiguration<DC_Author>
@@ -36,7 +37,7 @@ namespace LMG.DAT.Models.Author
                 .HasKey(primaryKey => primaryKey.Id);
 
             // Relationship
-            builder.HasMany(a => a.BookAuthors).WithOne(a => a.Author);
+            // builder.HasMany(a => a.BookAuthors).WithOne(a => a.Author);
 
             // Create new Id's when new authors are added to db.
             builder.Property(m => m.Id).ValueGeneratedOnAdd();

@@ -726,7 +726,7 @@ namespace LMG.DAT.Migrations
             modelBuilder.Entity("LMG.DAT.Models.BookAuthor.DC_BookAuthor", b =>
                 {
                     b.HasOne("LMG.DAT.Models.Author.DC_Author", "Author")
-                        .WithMany("BookAuthors")
+                        .WithMany()
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -797,11 +797,6 @@ namespace LMG.DAT.Migrations
                     b.Navigation("Book");
 
                     b.Navigation("Member");
-                });
-
-            modelBuilder.Entity("LMG.DAT.Models.Author.DC_Author", b =>
-                {
-                    b.Navigation("BookAuthors");
                 });
 
             modelBuilder.Entity("LMG.DAT.Models.Book.DC_Book", b =>

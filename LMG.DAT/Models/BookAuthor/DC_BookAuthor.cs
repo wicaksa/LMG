@@ -29,6 +29,7 @@ namespace LMG.DAT.Models.BookAuthor
         {
             // Relationship
             builder.HasOne(b => b.Book).WithMany(b => b.BookAuthors);
+			// builder.HasOne(a => a.Author).WithMany(a => a.BookAuthors);
 
 			// Seed Data
 			builder.HasData(

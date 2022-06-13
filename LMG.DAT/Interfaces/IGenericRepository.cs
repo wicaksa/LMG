@@ -21,7 +21,7 @@ namespace LMG.DAT.Interfaces
         Task InsertCollection(IEnumerable<TDataContextObject> dataContextObjects);
 
         // Update data
-        Task UpdateById(TDataContextObject dataContextObject);
+        void UpdateById(TDataContextObject dataContextObject);
 
         // Save
         Task SaveRepoAsync();

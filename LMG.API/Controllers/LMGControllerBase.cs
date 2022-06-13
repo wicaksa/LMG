@@ -99,24 +99,16 @@ namespace LMG.API.Controllers
             // Update
             [HttpPut]
             [Route("updateById/{id}")]
-            public async Task<IActionResult> Update(TDataContext obj)
+            public async void /*Task<IActionResult>*/ Update(TDataContext obj)
             {
-                var item = await GetById(obj.Id);
-
-                // If no object was pulled
-                if (item == null)
-                {
-                    // Return 400 code and put message in response body
-                    return BadRequest("Entry can't be updated: it does not exist in database.");
-                }
 
                 // Update by Id
-                await Repository.UpdateById(obj);
+                Repository.UpdateById(obj);
 
                 await Repository.SaveRepoAsync();
 
                 // Return object 
-                return Ok(obj);
+                // return Ok(obj);
             }
         }
     }
