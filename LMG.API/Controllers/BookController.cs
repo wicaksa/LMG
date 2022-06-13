@@ -24,7 +24,7 @@ namespace LMG.API.Controllers
         {
             _uow = uow;
         }
-
+        
         
     }
 

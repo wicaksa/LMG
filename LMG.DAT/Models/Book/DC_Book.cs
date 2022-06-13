@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace LMG.DAT.Models.Book
@@ -16,7 +17,7 @@ namespace LMG.DAT.Models.Book
     public class DC_Book : DataContextBase
     {
         // Attributes
-        public string Title { get; set; } = null!;
+        public string Title { get; set; }
 
         public int Copies { get; set; }
 
@@ -31,11 +32,20 @@ namespace LMG.DAT.Models.Book
         public int PublicationYear { get; set; }
 
         //Relationships
+        [JsonIgnore]
         public List<DC_Review>? Reviews { get; set; }
+
+        [JsonIgnore]
         public DC_Series? Serie { get; set; }
+
+        [JsonIgnore]
         public List<DC_Borrow>? Borrows { get; set; }
+
+        [JsonIgnore]
         public List<DC_BookAuthor>? BookAuthors { get; set; }
-        public List<DC_Reservation> Reservations { get; set; }
+
+        [JsonIgnore]
+        public List<DC_Reservation>? Reservations { get; set; }
     }
 
     public class BookConfiguration : IEntityTypeConfiguration<DC_Book>

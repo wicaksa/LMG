@@ -37,8 +37,8 @@ namespace LMG.DAT.Models.Reservation
                     .HasKey(m => m.Id);
 
                 // Relationship
-                builder.HasOne(b => b.Book).WithMany(b => b.Reservations);
-                builder.HasOne(m => m.Member).WithMany(m => m.Reservations);
+                // builder.HasOne(b => b.Book).WithMany(b => b.Reservations);
+                //builder.HasOne(m => m.Member).WithMany(m => m.Reservations);
 
                 // Column Props
                 builder.Property(r => r.ReservationResult).HasMaxLength(16);

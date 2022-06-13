@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace LMG.DAT.Models.Member
@@ -21,8 +22,9 @@ namespace LMG.DAT.Models.Member
         public long Phone { get; set; }
 
         // Relationship
+        [JsonIgnore]
         public List<DC_Borrow> Borrows { get; set; }
-
+        [JsonIgnore]
         public List <DC_Reservation> Reservations { get; set; }
 
     }

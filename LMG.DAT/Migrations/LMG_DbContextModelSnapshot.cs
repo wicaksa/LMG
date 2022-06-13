@@ -783,7 +783,7 @@ namespace LMG.DAT.Migrations
             modelBuilder.Entity("LMG.DAT.Models.Review.DC_Review", b =>
                 {
                     b.HasOne("LMG.DAT.Models.Book.DC_Book", "Book")
-                        .WithMany("Reviews")
+                        .WithMany()
                         .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -806,8 +806,6 @@ namespace LMG.DAT.Migrations
                     b.Navigation("Borrows");
 
                     b.Navigation("Reservations");
-
-                    b.Navigation("Reviews");
                 });
 
             modelBuilder.Entity("LMG.DAT.Models.Member.DC_Member", b =>

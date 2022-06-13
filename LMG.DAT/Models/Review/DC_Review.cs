@@ -31,7 +31,7 @@ namespace LMG.DAT.Models.Review
                 .HasKey(m => m.Id);
 
             // Relationship.
-            builder.HasOne(r => r.Book).WithMany(r => r.Reviews);
+            // builder.HasOne(r => r.Book).WithMany(r => r.Reviews);
 
             // Set column properties.
             builder.Property(m => m.Id).ValueGeneratedOnAdd();

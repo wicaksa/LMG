@@ -69,15 +69,28 @@ namespace LMG.DAT.Repositories
         }
 
         // UPDATE
-        public async void UpdateById(TDataContextObject dataContextObject)
+        /*
+        public async Task UpdateById(TDataContextObject dataContextObject)
         {
             var objToUpdate = await GetByIdAsync(dataContextObject.Id);
+
             objToUpdate.ModifiedAt = DateTime.UtcNow;
             objToUpdate.ModifiedBy = typeof(TDataContextObject).Name;
 
             Context.Set<TDataContextObject>().Attach(objToUpdate);
             Context.Entry(objToUpdate).State = EntityState.Modified;
         }
+        */
+
+        // UPDATE
+        public TDataContextObject Update(TDataContextObject dataContextObject)
+        {
+            var dataSet = Context.Set<TDataContextObject>().Attach(dataContextObject);
+            var entry = Context.Entry(dataContextObject);
+            entry.State = EntityState.Modified;
+            return dataContextObject;
+        }
+
 
         // SAVE 
         public async Task SaveRepoAsync()

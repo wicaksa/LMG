@@ -97,18 +97,28 @@ namespace LMG.API.Controllers
             }
 
             // Update
+            /*
             [HttpPut]
-            [Route("updateById/{id}")]
-            public async void /*Task<IActionResult>*/ Update(TDataContext obj)
+            [Route("update")]
+            public async Task<IActionResult> Update(TDataContext obj)
             {
-
-                // Update by Id
-                Repository.UpdateById(obj);
-
+                // Update
+                await Repository.UpdateById(obj);
                 await Repository.SaveRepoAsync();
 
                 // Return object 
-                // return Ok(obj);
+                return Ok(obj);
+            }
+            */
+
+            // Update
+            [HttpPatch]
+            [Route("updateById")]
+            public async Task Update(TDataContext obj)
+            {
+                Repository.Update(obj);
+                await Repository.SaveRepoAsync();
+                Ok();
             }
         }
     }

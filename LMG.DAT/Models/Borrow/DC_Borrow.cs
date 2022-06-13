@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace LMG.DAT.Models.Borrow
@@ -17,11 +18,13 @@ namespace LMG.DAT.Models.Borrow
         public DateTime BorrowDate { get; set; }
 		public DateTime DueDate { get; set; }	
 		public DateTime? ReturnDate { get; set; }
-		public String Status { get; set; }
+		public String Status { get; set; } // "Good" , "Overdue", "Returned"
 
         //Relationship
-        public DC_Book Book { get; set; }
-        public DC_Member Member { get; set; }
+        [JsonIgnore]
+		public DC_Book? Book { get; set; }
+        [JsonIgnore]
+        public DC_Member? Member { get; set; }
     }
 
     public class BorrowConfiguration : IEntityTypeConfiguration<DC_Borrow>
@@ -37,7 +40,7 @@ namespace LMG.DAT.Models.Borrow
 
             // Column Properties
             builder.Property(m => m.Id).ValueGeneratedOnAdd();
-			builder.Property(m => m.Status).HasMaxLength(16); // "Good" , "Overdue", "Returned"
+			builder.Property(m => m.Status).HasMaxLength(16); 
 
 			// Seed Data
 			builder.HasData(

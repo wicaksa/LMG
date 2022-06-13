@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace LMG.DAT.Models.Author
@@ -24,7 +25,8 @@ namespace LMG.DAT.Models.Author
         public string? Dod { get; set; } // Date of death
 
         // Relationships
-        // Original: public List<DC_BookAuthor> BookAuthors { get; set; }
+        [JsonIgnore]
+        public List<DC_BookAuthor>? BookAuthors { get; set; }
     }
 
     public class AuthorConfiguration : IEntityTypeConfiguration<DC_Author>
@@ -37,7 +39,7 @@ namespace LMG.DAT.Models.Author
                 .HasKey(primaryKey => primaryKey.Id);
 
             // Relationship
-            // builder.HasMany(a => a.BookAuthors).WithOne(a => a.Author);
+            builder.HasMany(a => a.BookAuthors).WithOne(a => a.Author);
 
             // Create new Id's when new authors are added to db.
             builder.Property(m => m.Id).ValueGeneratedOnAdd();
