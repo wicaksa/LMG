@@ -71,7 +71,6 @@ namespace LMG.DAT.Repositories
         // UPDATE
         public async Task UpdateById(TDataContextObject dataContextObject)
         {
-
             var objToUpdate = await GetByIdAsync(dataContextObject.Id);
             objToUpdate.ModifiedAt = DateTime.UtcNow;
             objToUpdate.ModifiedBy = typeof(TDataContextObject).Name;

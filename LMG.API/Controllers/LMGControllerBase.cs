@@ -26,34 +26,6 @@ namespace LMG.API.Controllers
                 Repository = repository;
             }
 
-            // Get all records in the db.
-            [HttpGet]
-            [Route("getAll")]
-            public async Task<IActionResult> GetAll()
-            {
-                // Find how many rows are availabe.
-                return Ok(await Repository.GetAllAsync(0, 3));
-            }
-
-            // Get By Id Route
-            [HttpGet]
-            [Route("getById/{id}")]
-            public async Task<IActionResult> GetById(int id)
-            {
-                // Get object from the db
-                var obj = await Repository.GetByIdAsync(id);
-
-                // If no object was pulled
-                if (obj == null)
-                {
-                    // Return 400 code and put message in response body
-                    return BadRequest("Id does not exist in databse.");
-                }
-
-                // Return object 
-                return Ok(obj);
-            }
-            
             // Delete
             [HttpDelete]
             [Route("deleteById/{id}")]
@@ -78,35 +50,72 @@ namespace LMG.API.Controllers
                 return Ok(obj);
             }
 
+            // Get all records in the db.
+            [HttpGet]
+            [Route("getAll")]
+            public async Task<IActionResult> GetAll()
+            {
+                // Find how many rows are availabe.
+                return Ok(await Repository.GetAllAsync(0, 5));
+            }
+
+            // Get By Id
+            [HttpGet]
+            [Route("getById/{id}")]
+            public async Task<IActionResult> GetById(int id)
+            {
+                // Get object from the db
+                var obj = await Repository.GetByIdAsync(id);
+
+                // If no object was pulled
+                if (obj == null)
+                {
+                    // Return 400 code and put message in response body
+                    return BadRequest("Id does not exist in databse.");
+                }
+
+                // Return object 
+                return Ok(obj);
+            }
+
             // Insert
             [HttpPost]
             [Route("insert")]
-            public async Task<IActionResult> Add(TDataContext obj)
+            public void Insert(TDataContext obj)
             {
-                await Repository.Insert(obj);
+                Repository.Insert(obj);
                 Repository.SaveRepoAsync();
-                return Ok(obj);
+            }
+
+            // Insert collection
+            [HttpPost]
+            [Route("insertCollection")]
+            public async Task InsertCollection(IEnumerable<TDataContext> obj)
+            {
+                await Repository.InsertCollection(obj);
+                await Repository.SaveRepoAsync();
             }
 
             // Update
             [HttpPut]
             [Route("updateById/{id}")]
-            public async Task<IActionResult> Update(int id)
+            public async Task<IActionResult> Update(TDataContext obj)
             {
-                // Get obj by id
-                var obj = await Repository.GetByIdAsync(id);
+                var item = await GetById(obj.Id);
 
-                // If obj doesn't exist
-                if (obj == null)
+                // If no object was pulled
+                if (item == null)
                 {
-                    // Return error message
-                    return BadRequest("Id does not exist in database.");
+                    // Return 400 code and put message in response body
+                    return BadRequest("Entry can't be updated: it does not exist in database.");
                 }
 
                 // Update by Id
-                await Repository.UpdateById(id);
+                await Repository.UpdateById(obj);
 
-                // Return
+                await Repository.SaveRepoAsync();
+
+                // Return object 
                 return Ok(obj);
             }
         }
