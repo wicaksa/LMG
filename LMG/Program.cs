@@ -1,7 +1,19 @@
+using LMG.DAT.DataContext;
+using LMG.DAT.Interfaces;
+using LMG.DAT.Repositories;
+using LMG.DAT.UnitOfWork;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+builder.Services.AddTransient<IGeneralUnitOfWork, GeneralUnitOfWork>();
+builder.Services.AddDbContext<LMG_DbContext>(options =>
+{
+    options.UseSqlServer("Data Source=codeday-labs-2;Integrated Security=True");
+});
 
 var app = builder.Build();
 

@@ -3,8 +3,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace LMG.DAT.Models.Author
@@ -12,18 +14,19 @@ namespace LMG.DAT.Models.Author
     public class DC_Author : DataContextBase
     {
         // Attributes
-        public string FirstName { get; set; } = null!;
+        public string FirstName { get; set; }
 
-        public string LastName { get; set; } = null!;
+        public string LastName { get; set; } 
 
         public string? Description { get; set; }
 
-        public string Dob { get; set; } = null!; // Date of birth
+        public string Dob { get; set; } // Date of birth
 
         public string? Dod { get; set; } // Date of death
 
         // Relationships
-        public List<DC_BookAuthor> BookAuthors { get; set; }
+        [JsonIgnore]
+        public List<DC_BookAuthor>? BookAuthors { get; set; }
     }
 
     public class AuthorConfiguration : IEntityTypeConfiguration<DC_Author>
@@ -61,7 +64,9 @@ namespace LMG.DAT.Models.Author
                     "wrote a seven-volume children's fantasy series, Harry Potter," +
                     " published from 1997 to 2007.",
                     Dob = "07/31/1965",
-                    Dod = null
+                    Dod = null,
+                    CreatedBy = "Me",
+                    ModifiedBy = "Me"
                 },
 
                 new DC_Author
@@ -74,7 +79,9 @@ namespace LMG.DAT.Models.Author
                     "its publication, Salinger published several short stories in " +
                     "Story magazine and served in World War II.",
                     Dob = "01/01/1919",
-                    Dod = "01/27/2010"
+                    Dod = "01/27/2010",
+                    CreatedBy = "Me",
+                    ModifiedBy = "Me"
                 },
 
                 new DC_Author
@@ -89,7 +96,9 @@ namespace LMG.DAT.Models.Author
                     " occupies a pivotal place in African literature and remains the " +
                     "most widely studied, translated and read African novel.",
                     Dob = "11/16/1930",
-                    Dod = "03/21/2013"
+                    Dod = "03/21/2013",
+                    CreatedBy = "Me",
+                    ModifiedBy = "Me"
                 },
 
                 new DC_Author
@@ -103,7 +112,9 @@ namespace LMG.DAT.Models.Author
                     "restaurant famous for its role in creating the farm-to-table movement " +
                     "and for pioneering California cuisine.",
                     Dob = "04/28/1944",
-                    Dod = null
+                    Dod = null,
+                    CreatedBy = "Me",
+                    ModifiedBy = "Me"
                 }
            );
 

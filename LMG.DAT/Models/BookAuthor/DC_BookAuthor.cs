@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace LMG.DAT.Models.BookAuthor
@@ -17,10 +18,12 @@ namespace LMG.DAT.Models.BookAuthor
         public int AuthorId { get; set; }
         public int BookId { get; set; }
 
-        //Relationships
-        public DC_Book Book { get; set; } 
+		//Relationships
+		[JsonIgnore]
+		public DC_Book? Book { get; set; }
 
-        public DC_Author Author { get; set; }
+		[JsonIgnore]
+		public DC_Author? Author { get; set; }
     }
 
     public class BookAuthorConfiguration : IEntityTypeConfiguration<DC_BookAuthor>
@@ -29,6 +32,7 @@ namespace LMG.DAT.Models.BookAuthor
         {
             // Relationship
             builder.HasOne(b => b.Book).WithMany(b => b.BookAuthors);
+			// builder.HasOne(a => a.Author).WithMany(a => a.BookAuthors);
 
 			// Seed Data
 			builder.HasData(

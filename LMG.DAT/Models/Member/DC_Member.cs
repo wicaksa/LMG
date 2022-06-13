@@ -1,10 +1,12 @@
 ﻿using LMG.DAT.Models.Borrow;
+using LMG.DAT.Models.Reservation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace LMG.DAT.Models.Member
@@ -20,7 +22,10 @@ namespace LMG.DAT.Models.Member
         public long Phone { get; set; }
 
         // Relationship
+        [JsonIgnore]
         public List<DC_Borrow> Borrows { get; set; }
+        [JsonIgnore]
+        public List <DC_Reservation> Reservations { get; set; }
 
     }
 
@@ -33,7 +38,8 @@ namespace LMG.DAT.Models.Member
                 .HasKey(primaryKey => primaryKey.Id);
 
             // Relationship.
-            builder.HasMany(m => m.Borrows).WithOne(m => m.Members);
+            builder.HasMany(m => m.Borrows).WithOne(m => m.Member);
+            builder.HasMany(m => m.Reservations).WithOne(m => m.Member);
 
             // Generate new Id's when new members are added to db.
             builder.Property(m => m.Id).ValueGeneratedOnAdd(); 

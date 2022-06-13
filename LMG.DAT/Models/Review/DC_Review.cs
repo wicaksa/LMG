@@ -1,4 +1,5 @@
 ﻿using LMG.DAT.Models.Book;
+using LMG.DAT.Models.Member;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -18,6 +19,7 @@ namespace LMG.DAT.Models.Review
 
         // Relationship
         public DC_Book Book { get; set; }
+        public DC_Member Member { get; set; }
     }
 
     public class ReviewConfiguration : IEntityTypeConfiguration<DC_Review>
@@ -29,7 +31,7 @@ namespace LMG.DAT.Models.Review
                 .HasKey(m => m.Id);
 
             // Relationship.
-            builder.HasOne(r => r.Book).WithMany(r => r.Reviews);
+            // builder.HasOne(r => r.Book).WithMany(r => r.Reviews);
 
             // Set column properties.
             builder.Property(m => m.Id).ValueGeneratedOnAdd();
