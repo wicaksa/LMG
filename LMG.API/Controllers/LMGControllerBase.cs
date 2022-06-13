@@ -32,7 +32,6 @@ namespace LMG.API.Controllers
             public async Task<IActionResult> GetAll()
             {
                 // Find how many rows are availabe.
-                // Put like 3 for now
                 return Ok(await Repository.GetAllAsync(0, 3));
             }
 

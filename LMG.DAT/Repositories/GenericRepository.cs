@@ -13,6 +13,7 @@ namespace LMG.DAT.Repositories
     public class GenericRepository<TDataContextObject> : IGenericRepository<TDataContextObject> where TDataContextObject : DataContextBase
     {
         protected readonly LMG_DbContext Context;
+
         public GenericRepository(LMG_DbContext context)
         {
             Context = context;
@@ -23,55 +24,73 @@ namespace LMG.DAT.Repositories
         {
             // Get the object by id
             var objToUpdate = await GetByIdAsync(id);
+
             // Remove the object --> Make sure to check for null value in LMGControllerBase
             Context.Set<TDataContextObject>().Remove(objToUpdate);
-            // Save changes
-            SaveRepoAsync();
         }
 
+        // GET ALL
         public async Task<ICollection<TDataContextObject>> GetAllAsync(int skip, int take)
         {
             return await Context.Set<TDataContextObject>().Skip(skip).Take(take).ToListAsync();
         }
 
+        // GET BY ID
         public async Task<TDataContextObject> GetByIdAsync(int id)
         {
             return await Context.Set<TDataContextObject>().FindAsync(id);
         }
 
-        public async Task<ICollection<TDataContextObject>> Insert(TDataContextObject obj)
+        // INSERT
+        public void Insert(TDataContextObject dataContextObject)
         {
-            Context.Add(obj);
-            await SaveRepoAsync();
-            return await Context.Set<TDataContextObject>().ToListAsync();
+            dataContextObject.CreatedAt = DateTime.UtcNow;
+            dataContextObject.CreatedBy = typeof(TDataContextObject).Name;
+            dataContextObject.ModifiedBy = typeof(TDataContextObject).Name;
+            dataContextObject.ModifiedAt = DateTime.UtcNow;
+
+            Context.Set<TDataContextObject>().Add(dataContextObject);
+
         }
 
-        public Task InsertCollection()
+        // INSERT COLLECTION
+        public async Task InsertCollection(IEnumerable<TDataContextObject> dataContextObjects)
         {
-            throw new NotImplementedException();
+            foreach (var obj in dataContextObjects)
+            {
+                obj.CreatedAt = DateTime.UtcNow;
+                obj.CreatedBy = typeof(TDataContextObject).Name;
+                obj.ModifiedBy = typeof(TDataContextObject).Name;
+                obj.ModifiedAt = DateTime.UtcNow;
+            }
+
+            await Context.Set<TDataContextObject>().AddRangeAsync(dataContextObjects);
+
+        }
+
+        // UPDATE
+        public async Task UpdateById(TDataContextObject dataContextObject)
+        {
+
+            var objToUpdate = await GetByIdAsync(dataContextObject.Id);
+            objToUpdate.ModifiedAt = DateTime.UtcNow;
+            objToUpdate.ModifiedBy = typeof(TDataContextObject).Name;
+
+            Context.Set<TDataContextObject>().Attach(objToUpdate);
+            Context.Entry(objToUpdate).State = EntityState.Modified;
         }
 
         // SAVE 
         public async Task SaveRepoAsync()
-        { 
-            await Context.SaveChangesAsync();
-        }
-
-        // UPDATE
-        public async Task UpdateById(int id)
         {
-            // Get the object by id
-            // var objToUpdate = await GetByIdAsync(id);
-            // Update the object
-            // Context.Set<TDataContextObject>().Update(objToUpdate);
+            try
+            {
+                await Context.SaveChangesAsync();
+            }
+            catch (DbUpdateException uxe)
+            {
 
-            var objToUpdate = await GetByIdAsync(id);
-
-            Context.Set<TDataContextObject>().Attach(objToUpdate);
-            Context.Entry(objToUpdate).State = EntityState.Modified;
-            // Save changes
-
-            await SaveRepoAsync();
+            }
         }
     }
 }

@@ -9,19 +9,19 @@ namespace LMG.DAT.Interfaces
 {
     public interface IGenericRepository<TDataContextObject> where TDataContextObject : DataContextBase
     {
+        // Delete data
+        Task Delete(int id);
+
         // Get data
         Task<ICollection<TDataContextObject>> GetAllAsync(int skip, int take);
         Task<TDataContextObject> GetByIdAsync(int id);
 
         // Inserting data
-        Task<ICollection<TDataContextObject>> Insert(TDataContextObject obj);
-        Task InsertCollection();
+        void Insert(TDataContextObject dataContextObject);
+        Task InsertCollection(IEnumerable<TDataContextObject> dataContextObjects);
 
         // Update data
-        Task UpdateById(int id);
-        
-        // Delete data
-        Task Delete(int id);
+        Task UpdateById(TDataContextObject dataContextObject);
 
         // Save
         Task SaveRepoAsync();
