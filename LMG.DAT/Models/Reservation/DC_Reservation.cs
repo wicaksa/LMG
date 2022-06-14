@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace LMG.DAT.Models.Reservation
@@ -24,9 +25,11 @@ namespace LMG.DAT.Models.Reservation
         public String? ReservationResult { get; set; } // Borrow, Cancel, or Expired
 
         // Relationships
-        public DC_Book Book { get; set; }
+        [JsonIgnore]
+        public DC_Book? Book { get; set; }
 
-        public DC_Member Member { get; set; }
+        [JsonIgnore]
+        public DC_Member? Member { get; set; }
 
         public class ReservationConfiguration : IEntityTypeConfiguration<DC_Reservation>
         {
@@ -37,8 +40,8 @@ namespace LMG.DAT.Models.Reservation
                     .HasKey(m => m.Id);
 
                 // Relationship
-                // builder.HasOne(b => b.Book).WithMany(b => b.Reservations);
-                //builder.HasOne(m => m.Member).WithMany(m => m.Reservations);
+                builder.HasOne(b => b.Book).WithMany(b => b.Reservations);
+                builder.HasOne(m => m.Member).WithMany(m => m.Reservations);
 
                 // Column Props
                 builder.Property(r => r.ReservationResult).HasMaxLength(16);
