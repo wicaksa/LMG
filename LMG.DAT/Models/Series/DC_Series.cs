@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace LMG.DAT.Models.Series
@@ -17,7 +18,8 @@ namespace LMG.DAT.Models.Series
         public int TotalBooks { get; set; }
 
         //Relationship
-        public List<DC_Book> Books { get; set; }
+        [JsonIgnore]
+        public List<DC_Book>? Books { get; set; }
     }
 
     public class SeriesConfiguration : IEntityTypeConfiguration<DC_Series>

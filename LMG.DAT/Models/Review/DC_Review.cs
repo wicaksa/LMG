@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace LMG.DAT.Models.Review
@@ -15,11 +16,13 @@ namespace LMG.DAT.Models.Review
         // Attributes
         public int BookId { get; set; }
         public int MemberId { get; set; }
-        public string Review { get; set; }
+        public string? Review { get; set; }
 
         // Relationship
-        public DC_Book Book { get; set; }
-        public DC_Member Member { get; set; }
+        [JsonIgnore]
+        public DC_Book? Book { get; set; }
+        [JsonIgnore]
+        public DC_Member? Member { get; set; }
     }
 
     public class ReviewConfiguration : IEntityTypeConfiguration<DC_Review>
@@ -31,7 +34,7 @@ namespace LMG.DAT.Models.Review
                 .HasKey(m => m.Id);
 
             // Relationship.
-            // builder.HasOne(r => r.Book).WithMany(r => r.Reviews);
+            builder.HasOne(r => r.Book).WithMany(r => r.Reviews);
 
             // Set column properties.
             builder.Property(m => m.Id).ValueGeneratedOnAdd();
