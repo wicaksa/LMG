@@ -1,4 +1,5 @@
 ﻿using LMG.API.Controllers.LMG.API.Controllers;
+using LMG.BLL.Models;
 using LMG.DAT.Interfaces;
 using LMG.DAT.Models.Review;
 using Microsoft.AspNetCore.Http;
@@ -8,9 +9,9 @@ namespace LMG.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ReviewController : LMGControllerBase<DC_Review>
+    public class ReviewController : LMGControllerBase<ReviewModel, DC_Review>
     {
-        public ReviewController(IGenericRepository<DC_Review> repository) : base(repository)
+        public ReviewController(GenericRepository<DC_Review> repository) : base(repository)
         {
         }
     }

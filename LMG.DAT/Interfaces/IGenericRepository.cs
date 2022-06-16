@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LMG.DAT.Interfaces
 {
-    public interface IGenericRepository<TDataContextObject> where TDataContextObject : DataContextBase
+    public interface GenericRepository<TDataContextObject> where TDataContextObject : DataContextBase
     {
         // Delete data
         Task Delete(int id);
