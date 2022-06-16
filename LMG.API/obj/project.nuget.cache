@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "83wnysTLuVNpEB2mT3qeU2EKWhKcCkpTw6+7D7dgoIYOlHRtRaDWVIXbyV3prz24zluuKCaj8kDA/R8EISzFeg==",
+  "dgSpecHash": "okLY9U3GDAvWgPOs+65/Cf8iF2Ibc4RbnTz7mXjYl6W7aRA6qfvH0IYT4ME941hwM9Q43AZaWJvAlk1/DVjD8g==",
   "success": true,
-  "projectFilePath": "C:\\Users\\codeday\\EBSCO\\LMG\\LMG.API\\LMG.API.csproj",
+  "projectFilePath": "C:\\Users\\codeday\\EBSCO-Folio\\BLL\\LMG\\LMG.API\\LMG.API.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\codeday\\.nuget\\packages\\automapper\\11.0.1\\automapper.11.0.1.nupkg.sha512",
     "C:\\Users\\codeday\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
-    "C:\\Users\\codeday\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
+    "C:\\Users\\codeday\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\codeday\\.nuget\\packages\\microsoft.data.sqlclient\\2.1.4\\microsoft.data.sqlclient.2.1.4.nupkg.sha512",
     "C:\\Users\\codeday\\.nuget\\packages\\microsoft.data.sqlclient.sni.runtime\\2.1.1\\microsoft.data.sqlclient.sni.runtime.2.1.1.nupkg.sha512",
     "C:\\Users\\codeday\\.nuget\\packages\\microsoft.entityframeworkcore\\6.0.5\\microsoft.entityframeworkcore.6.0.5.nupkg.sha512",

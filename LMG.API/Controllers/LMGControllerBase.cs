@@ -1,4 +1,5 @@
-﻿using LMG.DAT.Interfaces;
+﻿using LMG.BLL;
+using LMG.DAT.Interfaces;
 using LMG.DAT.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,24 +15,27 @@ namespace LMG.API.Controllers
 
         [Route("api/[controller]")]
         [ApiController]
-        public abstract class LMGControllerBase<TDataContext> : ControllerBase where TDataContext : DataContextBase
+        public abstract class LMGControllerBase<TDataModel, TDataContext> : ControllerBase where TDataContext : DataContextBase
         {
 
             // Get an instance of the generic repository
-            protected readonly IGenericRepository<TDataContext> Repository;
+            protected readonly GenericRepository<TDataContext> Repository;
+            private GenericBLL<TDataModel,TDataContext> _BLL;
 
             // Constructor 
-            public LMGControllerBase(IGenericRepository<TDataContext> repository)
+            public LMGControllerBase(GenericRepository<TDataContext> repository)
             {
                 Repository = repository;
+                _BLL = new GenericBLL<TDataModel, TDataContext>(Repository);
             }
 
             // Delete
             [HttpDelete]
             [Route("deleteById/{id}")]
-            public async Task<IActionResult> Delete(int id)
+            public async Task Delete(int id)
             {
                 // Get obj by id
+                /*
                 var obj = await Repository.GetByIdAsync(id);
 
                 // If obj doesn't exist
@@ -48,15 +52,19 @@ namespace LMG.API.Controllers
                 await Repository.SaveRepoAsync();
 
                 return Ok(obj);
+                */
+                await _BLL.Delete(id);
+                await Repository.SaveRepoAsync();
             }
 
             // Get all records in the db.
             [HttpGet]
             [Route("getAll")]
-            public async Task<IActionResult> GetAll()
+            public async Task<ICollection<TDataModel>> GetAll()
             {
                 // Find how many rows are availabe.
-                return Ok(await Repository.GetAllAsync(0, 5));
+                //return Ok(await Repository.GetAllAsync(0, 5));
+                return await _BLL.GetAll();
             }
 
             // Get By Id
@@ -65,6 +73,7 @@ namespace LMG.API.Controllers
             public async Task<IActionResult> GetById(int id)
             {
                 // Get object from the db
+                /*
                 var obj = await Repository.GetByIdAsync(id);
 
                 // If no object was pulled
@@ -76,23 +85,39 @@ namespace LMG.API.Controllers
 
                 // Return object 
                 return Ok(obj);
+                */
+                var obj = await _BLL.GetById(id);
+                if(obj == null)
+                {
+                    return NotFound("Invalid ID");
+                }
+                return Ok(obj);
             }
 
             // Insert
             [HttpPost]
             [Route("insert")]
-            public void Insert(TDataContext obj)
+            public void Insert([FromBody] TDataModel obj)
             {
+                /*
                 Repository.Insert(obj);
+                Repository.SaveRepoAsync();
+                */
+                _BLL.Insert(obj);
                 Repository.SaveRepoAsync();
             }
 
             // Insert collection
             [HttpPost]
             [Route("insertCollection")]
-            public async Task InsertCollection(IEnumerable<TDataContext> obj)
+            public async Task InsertCollection(IEnumerable<TDataModel> obj)
             {
+                /*
                 await Repository.InsertCollection(obj);
+                await Repository.SaveRepoAsync();
+                */
+
+                await _BLL.InsertCollection(obj);
                 await Repository.SaveRepoAsync();
             }
 
@@ -114,11 +139,16 @@ namespace LMG.API.Controllers
             // Update
             [HttpPatch]
             [Route("updateById")]
-            public async Task Update(TDataContext obj)
+            public async Task Update(int id, TDataModel obj)
             {
+                /*
                 Repository.Update(obj);
                 await Repository.SaveRepoAsync();
                 Ok();
+                */
+                
+                await _BLL.Update(id, obj);
+                await Repository.SaveRepoAsync();
             }
         }
     }

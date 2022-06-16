@@ -25,7 +25,6 @@ namespace LMG.DAT.Models.Author
         public string? Dod { get; set; } // Date of death
 
         // Relationships
-        [JsonIgnore]
         public List<DC_BookAuthor>? BookAuthors { get; set; }
     }
 

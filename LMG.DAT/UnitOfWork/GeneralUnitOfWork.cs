@@ -14,17 +14,17 @@ namespace LMG.DAT.UnitOfWork
 {
     public interface IGeneralUnitOfWork
     {
-        IGenericRepository<DC_Book> BookRepository { get; }
-        IGenericRepository<DC_Author> AuthorRepository { get; }
-        IGenericRepository<DC_BookAuthor> BookAuthorRepository { get; }
+        Interfaces.GenericRepository<DC_Book> BookRepository { get; }
+        Interfaces.GenericRepository<DC_Author> AuthorRepository { get; }
+        Interfaces.GenericRepository<DC_BookAuthor> BookAuthorRepository { get; }
     }
     public class GeneralUnitOfWork : IGeneralUnitOfWork
     {
-        public IGenericRepository<DC_Book> BookRepository { get; private set; }
-        public IGenericRepository<DC_Author> AuthorRepository { get; private set; }
-        public IGenericRepository<DC_BookAuthor> BookAuthorRepository { get; private set; }
+        public Interfaces.GenericRepository<DC_Book> BookRepository { get; private set; }
+        public Interfaces.GenericRepository<DC_Author> AuthorRepository { get; private set; }
+        public Interfaces.GenericRepository<DC_BookAuthor> BookAuthorRepository { get; private set; }
 
-        public GeneralUnitOfWork(IGenericRepository<DC_Book> bookRepository, IGenericRepository<DC_Author> authorRepository, IGenericRepository<DC_BookAuthor> bookAuthorRepository)
+        public GeneralUnitOfWork(Interfaces.GenericRepository<DC_Book> bookRepository, Interfaces.GenericRepository<DC_Author> authorRepository, Interfaces.GenericRepository<DC_BookAuthor> bookAuthorRepository)
         {
             BookRepository = bookRepository;
             AuthorRepository = authorRepository;

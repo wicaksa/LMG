@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
-builder.Services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+builder.Services.AddTransient(typeof(LMG.DAT.Interfaces.GenericRepository<>), typeof(LMG.DAT.Repositories.GenericRepository<>));
 builder.Services.AddTransient<IGeneralUnitOfWork, GeneralUnitOfWork>();
 builder.Services.AddDbContext<LMG_DbContext>(options =>
 {

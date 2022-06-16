@@ -1,4 +1,5 @@
 ﻿using LMG.API.Controllers.LMG.API.Controllers;
+using LMG.BLL.Models;
 using LMG.DAT.Interfaces;
 using LMG.DAT.Models.Series;
 using Microsoft.AspNetCore.Http;
@@ -8,9 +9,9 @@ namespace LMG.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class SeriesController : LMGControllerBase<DC_Series>
+    public class SeriesController : LMGControllerBase<SeriesModel, DC_Series>
     {
-        public SeriesController(IGenericRepository<DC_Series> repository) : base(repository)
+        public SeriesController(GenericRepository<DC_Series> repository) : base(repository)
         {
         }
     }

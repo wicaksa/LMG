@@ -1,4 +1,5 @@
 ﻿using LMG.API.Controllers.LMG.API.Controllers;
+using LMG.BLL.Models;
 using LMG.DAT.Interfaces;
 using LMG.DAT.Models.Book;
 using LMG.DAT.UnitOfWork;
@@ -10,17 +11,17 @@ namespace LMG.API.Controllers
 
     [Route("api/[controller]")]
     [ApiController]
-    public class BookController : LMGControllerBase<DC_Book>
+    public class BookController : LMGControllerBase<BookModel, DC_Book>
     {
         private readonly IGeneralUnitOfWork _uow;
 
-        public BookController(IGenericRepository<DC_Book> repository) : base(repository)
+        public BookController(GenericRepository<DC_Book> repository) : base(repository)
         {
             
         }
 
         [ActivatorUtilitiesConstructor]
-        public BookController(IGeneralUnitOfWork uow, IGenericRepository<DC_Book> repository) : base(repository)
+        public BookController(IGeneralUnitOfWork uow, GenericRepository<DC_Book> repository) : base(repository)
         {
             _uow = uow;
         }
