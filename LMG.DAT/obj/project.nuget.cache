@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "pMGazH9B/ikOKOmYdk7ONg4fDAzqmkttI1nBmRB4UdRkYXdaFrPeJFtjSdlgd+20jaIn/Fbfit2caSDYII2EtQ==",
+  "dgSpecHash": "M6Z1iCwVM2szbofn8rOhlnWtDuqS2xHJFP0cufvPlwZXjDESw+j0QvPVyxMEy/baqIsZuGwq0mCQbx1vTXuPsw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\codeday\\EBSCO-Folio\\BLL\\LMG\\LMG.DAT\\LMG.DAT.csproj",
+  "projectFilePath": "C:\\Users\\codeday\\EBSCO-Folio\\memberManagement\\LMG\\LMG.DAT\\LMG.DAT.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\codeday\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\codeday\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
