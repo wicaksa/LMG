@@ -33,6 +33,20 @@ namespace LMG.API.Controllers
             return await _BLL.GetUnavailableBooks();
         }
 
+        [HttpGet]
+        [Route("searchByTitle")]
+        public async Task<ICollection<BookModel>> SearchByTitle(string title)
+        {
+            return await _BLL.searchByTitle(title);
+        }
+
+        [HttpGet]
+        [Route("searchByAuthor")]
+        public async Task<ICollection<BookModel>> SearchByAuthor(string author)
+        {
+            return await _BLL.searchByAuthor(author);
+        }
+
         [HttpPatch]
         [Route("borrowBook")]
         public async Task BorrowBook(int id)
