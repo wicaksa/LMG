@@ -4,6 +4,8 @@ using LMG.DAT.Models.Author;
 using LMG.DAT.Models.Book;
 using LMG.DAT.Models.BookAuthor;
 using LMG.DAT.Models.Borrow;
+using LMG.DAT.Models.Member;
+using LMG.DAT.Models.Reservation;
 using LMG.DAT.UnitOfWork;
 using System;
 using System.Collections.Generic;
@@ -58,9 +60,16 @@ namespace LMG.BLL
             return model;
         }
 
-        public async Task BorrowBook(int id)
+        public async Task BorrowBook(int bookId, int memberId)
         {
-            DC_Book book = await _uow.BookRepository.GetByIdAsync(id);
+            DC_Book book = await _uow.BookRepository.GetByIdAsync(bookId);
+            DC_Member member = await _uow.MemberRepository.GetByIdAsync(memberId);
+
+            if(book == null || member == null)
+            {
+                var message = string.Format("Book with id = {0} not found or invalid user", bookId);
+                throw new Exception(message);
+            }
             if(book.Copies > 0)
             {
                 book.Copies--;
@@ -68,8 +77,8 @@ namespace LMG.BLL
                 await _uow.BookRepository.SaveRepoAsync();
                 DC_Borrow newEntry = new DC_Borrow
                 {
-                    BookId = id,
-                    MemberId = 1,
+                    BookId = bookId,
+                    MemberId = memberId,
                     BorrowDate = DateTime.UtcNow,
                     ReturnDate = null,
                     Status = "Good"
@@ -83,12 +92,74 @@ namespace LMG.BLL
             }
         }
 
-        public async Task ReturnBook(int id)
+        public async Task ReturnBook(int borrowId)
         {
-            DC_Book book = await _uow.BookRepository.GetByIdAsync(id);
-            book.Copies++;
-            _uow.BookRepository.Update(book);
-            await _uow.BookRepository.SaveRepoAsync();
+            DC_Borrow borrowInfo = await _uow.BorrowRepository.GetByIdAsync(borrowId);
+            if(borrowInfo != null)
+            {
+                if(borrowInfo.Status != "Returned")
+                {
+                    DC_Book book = await _uow.BookRepository.GetByIdAsync(borrowInfo.BookId);
+                    borrowInfo.ReturnDate = DateTime.UtcNow;
+                    borrowInfo.Status = "Returned";
+                    _uow.BorrowRepository.Update(borrowInfo);
+                    await _uow.BorrowRepository.SaveRepoAsync();
+
+                    book.Copies++;
+                    _uow.BookRepository.Update(book);
+                    await _uow.BookRepository.SaveRepoAsync();
+                }
+                else
+                {
+                    var message = string.Format("Book already returned.");
+                    throw new Exception(message);
+                }
+               
+            }
+            else
+            {
+                var message = string.Format("Borrow with id = {0} not found.", borrowId);
+                throw new Exception(message);
+            }
+            
+        }
+
+        public async Task ReserveBook(int bookId, int memberId)
+        {
+            // Get a book by id first
+            DC_Book book = await _uow.BookRepository.GetByIdAsync(bookId);
+            DC_Member member = await _uow.MemberRepository.GetByIdAsync(memberId);
+
+            // Check if book is null
+            if (book == null || member == null)
+            {
+                var message = string.Format("Book with id = {0} not found or invalid user", bookId);
+                throw new Exception(message);
+            }
+            if(book.Copies > 0)
+            {
+                var message = string.Format("There are plenty of copies");
+                throw new Exception(message);
+            }
+
+            // Do we need to check if we have enough copies to reserve?
+
+            // Create a new entry in DC_Reservation
+            DC_Reservation newReservation = new DC_Reservation
+            {
+                BookId = bookId,
+                MemberId = memberId,
+                ReservationDate = DateTime.UtcNow,
+                ReservationExpirationDate = DateTime.UtcNow.AddDays(14), // 14 days EX
+                ReservationStatus = true,
+                ReservationResult = null
+            };
+
+            // Insert new reservation to db
+            _uow.ReservationRepository.Insert(newReservation);
+
+            // Save
+            await _uow.ReservationRepository.SaveRepoAsync();
         }
 
         public async Task<ICollection<BookModel>> searchByTitle(string title)

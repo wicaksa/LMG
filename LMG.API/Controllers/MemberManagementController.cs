@@ -49,16 +49,23 @@ namespace LMG.API.Controllers
 
         [HttpPatch]
         [Route("borrowBook")]
-        public async Task BorrowBook(int id)
+        public async Task BorrowBook(int bookId, int memberId)
         {
-            await _BLL.BorrowBook(id);
+            await _BLL.BorrowBook(bookId, memberId);
         }
 
         [HttpPatch]
         [Route("returnBook")]
-        public async Task ReturnBook(int id)
+        public async Task ReturnBook(int borrowId)
         {
-            await _BLL.ReturnBook(id);
+            await _BLL.ReturnBook(borrowId);
+        }
+
+        [HttpPatch]
+        [Route("reserveBook")]
+        public async Task ReserveBook(int bookId, int memberId)
+        {
+            await _BLL.ReserveBook(bookId, memberId);
         }
     }
 }
