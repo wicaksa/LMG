@@ -11,7 +11,12 @@ namespace LMG.API.Controllers
     [ApiController]
     public class ReviewController : LMGControllerBase<ReviewModel, DC_Review>
     {
-        public ReviewController(GenericRepository<DC_Review> repository) : base(repository)
+        /*
+        public ReviewController(IGenericRepository<DC_Review> repository) : base(repository)
+        {
+        }
+        */
+        public ReviewController(IGeneralUnitOfWork<ReviewModel, DC_Review> uow) : base(uow)
         {
         }
     }

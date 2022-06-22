@@ -11,7 +11,12 @@ namespace LMG.API.Controllers
     [ApiController]
     public class SeriesController : LMGControllerBase<SeriesModel, DC_Series>
     {
-        public SeriesController(GenericRepository<DC_Series> repository) : base(repository)
+        /*
+        public SeriesController(IGenericRepository<DC_Series> repository) : base(repository)
+        {
+        }
+        */
+        public SeriesController(IGeneralUnitOfWork<SeriesModel, DC_Series> uow) : base(uow)
         {
         }
     }

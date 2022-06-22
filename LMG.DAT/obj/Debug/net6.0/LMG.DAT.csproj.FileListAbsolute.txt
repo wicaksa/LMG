@@ -288,3 +288,6 @@ C:\Users\codeday\EBSCO-Folio\memberManagement\LMG\LMG.DAT\obj\Debug\net6.0\refin
 C:\Users\codeday\EBSCO-Folio\memberManagement\LMG\LMG.DAT\obj\Debug\net6.0\LMG.DAT.pdb
 C:\Users\codeday\EBSCO-Folio\memberManagement\LMG\LMG.DAT\obj\Debug\net6.0\LMG.DAT.genruntimeconfig.cache
 C:\Users\codeday\EBSCO-Folio\memberManagement\LMG\LMG.DAT\obj\Debug\net6.0\ref\LMG.DAT.dll
+C:\Users\codeday\EBSCO-Folio\memberManagement\LMG\LMG.DAT\bin\Debug\net6.0\AutoMapper.dll
+C:\Users\codeday\EBSCO-Folio\memberManagement\LMG\LMG.DAT\bin\Debug\net6.0\LMG.BLL.dll
+C:\Users\codeday\EBSCO-Folio\memberManagement\LMG\LMG.DAT\bin\Debug\net6.0\LMG.BLL.pdb

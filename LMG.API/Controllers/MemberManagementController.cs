@@ -1,7 +1,6 @@
-﻿using LMG.BLL;
-using LMG.BLL.Models;
+﻿using LMG.BLL.Models;
+using LMG.DAT.Interfaces;
 using LMG.DAT.UnitOfWork;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LMG.API.Controllers
@@ -10,62 +9,60 @@ namespace LMG.API.Controllers
     [ApiController]
     public class MemberManagementController : ControllerBase
     {
-        private readonly IGeneralUnitOfWork _uow;
-        private MemberManagementBLL _BLL;
+        private readonly IMemberManagementUnitOfWork _uow;
 
-        public MemberManagementController(IGeneralUnitOfWork uow)
+        public MemberManagementController(IMemberManagementUnitOfWork uow)
         {
             _uow = uow;
-            _BLL = new MemberManagementBLL(_uow);
         }
 
         [HttpGet]
         [Route("getAvailableBooks")]
         public async Task<ICollection<BookModel>> GetAvailableBooks()
         {
-            return await _BLL.GetAvailableBooks();
+            return await _uow.GetAvailableBooks();
         }
 
         [HttpGet]
         [Route("getUnavailableBooks")]
         public async Task<ICollection<BookModel>> GetUnavailableBooks()
         {
-            return await _BLL.GetUnavailableBooks();
+            return await _uow.GetUnavailableBooks();
         }
 
         [HttpGet]
         [Route("searchByTitle")]
         public async Task<ICollection<BookModel>> SearchByTitle(string title)
         {
-            return await _BLL.searchByTitle(title);
+            return await _uow.searchByTitle(title);
         }
 
         [HttpGet]
         [Route("searchByAuthor")]
         public async Task<ICollection<BookModel>> SearchByAuthor(string author)
         {
-            return await _BLL.searchByAuthor(author);
+            return await _uow.searchByAuthor(author);
         }
 
         [HttpPatch]
         [Route("borrowBook")]
         public async Task BorrowBook(int bookId, int memberId)
         {
-            await _BLL.BorrowBook(bookId, memberId);
+            await _uow.BorrowBook(bookId, memberId);
         }
 
         [HttpPatch]
         [Route("returnBook")]
         public async Task ReturnBook(int borrowId)
         {
-            await _BLL.ReturnBook(borrowId);
+            await _uow.ReturnBook(borrowId);
         }
 
         [HttpPatch]
         [Route("reserveBook")]
         public async Task ReserveBook(int bookId, int memberId)
         {
-            await _BLL.ReserveBook(bookId, memberId);
+            await _uow.ReserveBook(bookId, memberId);
         }
     }
 }

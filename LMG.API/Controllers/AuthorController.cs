@@ -12,7 +12,12 @@ namespace LMG.API.Controllers
     [ApiController]
     public class AuthorController : LMGControllerBase<AuthorModel, DC_Author>
     {
-        public AuthorController(GenericRepository<DC_Author> repository) : base(repository)
+        /*
+        public AuthorController(IGenericRepository<DC_Author> repository) : base(repository)
+        {
+        }
+        */
+        public AuthorController(IGeneralUnitOfWork<AuthorModel, DC_Author> uow) : base(uow)
         {
         }
     }

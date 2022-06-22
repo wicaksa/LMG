@@ -197,11 +197,11 @@ C:\Users\codeday\EBSCO-Folio\BLL\LMG\LMG.API\obj\Debug\net6.0\refint\LMG.API.dll
 C:\Users\codeday\EBSCO-Folio\BLL\LMG\LMG.API\obj\Debug\net6.0\LMG.API.pdb
 C:\Users\codeday\EBSCO-Folio\BLL\LMG\LMG.API\obj\Debug\net6.0\LMG.API.genruntimeconfig.cache
 C:\Users\codeday\EBSCO-Folio\BLL\LMG\LMG.API\obj\Debug\net6.0\ref\LMG.API.dll
-C:\Users\codeday\EBSCO-Folio\memberManagement\LMG\LMG.API\bin\Debug\net6.0\appsettings.Development.json
-C:\Users\codeday\EBSCO-Folio\memberManagement\LMG\LMG.API\bin\Debug\net6.0\appsettings.json
 C:\Users\codeday\EBSCO-Folio\memberManagement\LMG\LMG.API\bin\Debug\net6.0\LMG.DAT.deps.json
 C:\Users\codeday\EBSCO-Folio\memberManagement\LMG\LMG.API\bin\Debug\net6.0\LMG.DAT.runtimeconfig.json
 C:\Users\codeday\EBSCO-Folio\memberManagement\LMG\LMG.API\bin\Debug\net6.0\LMG.DAT.exe
+C:\Users\codeday\EBSCO-Folio\memberManagement\LMG\LMG.API\bin\Debug\net6.0\appsettings.Development.json
+C:\Users\codeday\EBSCO-Folio\memberManagement\LMG\LMG.API\bin\Debug\net6.0\appsettings.json
 C:\Users\codeday\EBSCO-Folio\memberManagement\LMG\LMG.API\bin\Debug\net6.0\LMG.API.exe
 C:\Users\codeday\EBSCO-Folio\memberManagement\LMG\LMG.API\bin\Debug\net6.0\LMG.API.deps.json
 C:\Users\codeday\EBSCO-Folio\memberManagement\LMG\LMG.API\bin\Debug\net6.0\LMG.API.runtimeconfig.json

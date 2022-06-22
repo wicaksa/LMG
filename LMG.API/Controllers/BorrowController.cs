@@ -11,7 +11,12 @@ namespace LMG.API.Controllers
     [ApiController]
     public class BorrowController : LMGControllerBase<BorrowModel, DC_Borrow>
     {
-        public BorrowController(GenericRepository<DC_Borrow> repository) : base(repository)
+        /*
+        public BorrowController(IGenericRepository<DC_Borrow> repository) : base(repository)
+        {
+        }
+        */
+        public BorrowController(IGeneralUnitOfWork<BorrowModel, DC_Borrow> uow) : base(uow)
         {
         }
     }

@@ -34,6 +34,9 @@
             "projectReferences": {
               "C:\\Users\\codeday\\EBSCO-Folio\\memberManagement\\LMG\\LMG.BLL\\LMG.BLL.csproj": {
                 "projectPath": "C:\\Users\\codeday\\EBSCO-Folio\\memberManagement\\LMG\\LMG.BLL\\LMG.BLL.csproj"
+              },
+              "C:\\Users\\codeday\\EBSCO-Folio\\memberManagement\\LMG\\LMG.DAT\\LMG.DAT.csproj": {
+                "projectPath": "C:\\Users\\codeday\\EBSCO-Folio\\memberManagement\\LMG\\LMG.DAT\\LMG.DAT.csproj"
               }
             }
           }
@@ -108,11 +111,7 @@
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
-            "projectReferences": {
-              "C:\\Users\\codeday\\EBSCO-Folio\\memberManagement\\LMG\\LMG.DAT\\LMG.DAT.csproj": {
-                "projectPath": "C:\\Users\\codeday\\EBSCO-Folio\\memberManagement\\LMG\\LMG.DAT\\LMG.DAT.csproj"
-              }
-            }
+            "projectReferences": {}
           }
         },
         "warningProperties": {
@@ -176,7 +175,11 @@
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Users\\codeday\\EBSCO-Folio\\memberManagement\\LMG\\LMG.BLL\\LMG.BLL.csproj": {
+                "projectPath": "C:\\Users\\codeday\\EBSCO-Folio\\memberManagement\\LMG\\LMG.BLL\\LMG.BLL.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -189,6 +192,10 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[11.0.1, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[6.0.5, )"
