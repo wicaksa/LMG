@@ -1,15 +1,27 @@
 ﻿using LMG.BLL.Models;
-using LMG.DAT.UnitOfWork;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using LMG.DAT.Models.Author;
+using LMG.DAT.Models.Book;
+using LMG.DAT.Models.BookAuthor;
+using LMG.DAT.Models.Borrow;
+using LMG.DAT.Models.Member;
+using LMG.DAT.Models.Reservation;
+using LMG.DAT.Models.Review;
+using LMG.DAT.Models.Series;
 
 namespace LMG.DAT.Interfaces
 {
     public interface IMemberManagementUnitOfWork
     {
+        /*
+        IGenericRepository<DC_Book> BookRepository { get; set; }
+        IGenericRepository<DC_Author> AuthorRepository { get; set; }
+        IGenericRepository<DC_BookAuthor> BookAuthorRepository { get; set; }
+        IGenericRepository<DC_Borrow> BorrowRepository { get; set; }
+        IGenericRepository<DC_Member> MemberRepository { get; set; }
+        IGenericRepository<DC_Reservation> ReservationRepository { get; set; }
+        IGenericRepository<DC_Review> ReviewRepository { get; set; }
+        IGenericRepository<DC_Series> SeriesRepository { get; set; }
+        */
         Task<ICollection<BookModel>> GetAvailableBooks();
         Task<ICollection<BookModel>> GetUnavailableBooks();
         Task BorrowBook(int bookId, int memberId);

@@ -203,11 +203,11 @@ namespace LMG.DAT.UnitOfWork
         public async Task<ICollection<BookModel>> searchByAuthor(string author)
         {
             //Getting all the rows from bookAuthor
-            ICollection<DC_BookAuthor> bookAuthors = await BookAuthorRepository.GetAllAsync(0, 5);
+            var bookAuthors = await BookAuthorRepository.GetAllAsync(0, 5);
             //Getting all the authors
-            ICollection<DC_Author> authors = await AuthorRepository.GetAllAsync(0, 5);
+            var authors = await AuthorRepository.GetAllAsync(0, 5);
             //This will hold the books that are found and are related to the author entered. 
-            ICollection<DC_Book> foundBooks = new Collection<DC_Book>();
+            var foundBooks = new Collection<DC_Book>();
             //Used if the author entered exists. 
             DC_Author foundAuthor = new DC_Author();
             //Go through all the authors and check if the first or last name contain the entered input. 
