@@ -92,7 +92,7 @@ namespace LMG.DAT.UnitOfWork
             {
                 book.Copies--;
                 BookRepository.Update(book);
-                await BookRepository.SaveRepoAsync();
+                //await BookRepository.SaveRepoAsync();
                 DC_Borrow newEntry = new DC_Borrow
                 {
                     BookId = bookId,
@@ -102,7 +102,9 @@ namespace LMG.DAT.UnitOfWork
                     Status = "Good"
                 };
                 BorrowRepository.Insert(newEntry);
-                await BorrowRepository.SaveRepoAsync();
+                //await BorrowRepository.SaveRepoAsync();
+                await BookRepository.SaveRepoAsync();
+
             }
             else
             {
@@ -121,7 +123,6 @@ namespace LMG.DAT.UnitOfWork
                     borrowInfo.ReturnDate = DateTime.UtcNow;
                     borrowInfo.Status = "Returned";
                     BorrowRepository.Update(borrowInfo);
-                    await BorrowRepository.SaveRepoAsync();
 
                     book.Copies++;
                     BookRepository.Update(book);

@@ -12,7 +12,7 @@ namespace LMG.DAT.Repositories
 {
     public class GenericRepository<TDataContextObject> : Interfaces.IGenericRepository<TDataContextObject> where TDataContextObject : DataContextBase
     {
-        protected readonly LMG_DbContext Context;
+        internal LMG_DbContext Context { get; }
 
         public GenericRepository(LMG_DbContext context)
         {

@@ -1,4 +1,5 @@
-﻿using LMG.DAT.Models;
+﻿using LMG.DAT.DataContext;
+using LMG.DAT.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,7 @@ namespace LMG.DAT.Interfaces
 {
     public interface IGenericRepository<TDataContextObject> where TDataContextObject : DataContextBase
     {
+
         // Delete data
         Task Delete(int id);
 

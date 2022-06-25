@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using LMG.DAT.DataContext;
 using LMG.DAT.Interfaces;
 using LMG.DAT.Models;
 
@@ -7,11 +8,13 @@ namespace LMG.DAT.UnitOfWork
     public class GeneralUnitOfWork<TDataModel, TDataContext> : IGeneralUnitOfWork<TDataModel, TDataContext> where TDataContext : DataContextBase
     {
         protected readonly IGenericRepository<TDataContext> Repository;
+        protected readonly LMG_DbContext Context;
         private Mapper _Mapper;
 
-        public GeneralUnitOfWork(IGenericRepository<TDataContext> repository)
+        public GeneralUnitOfWork(IGenericRepository<TDataContext> repository, LMG_DbContext ctx)
         {
             Repository = repository;
+            Context = ctx;
             var _config = new MapperConfiguration(cfg => cfg.CreateMap<TDataContext, TDataModel>().ReverseMap());
             _Mapper = new Mapper(_config);
         }
@@ -35,7 +38,7 @@ namespace LMG.DAT.UnitOfWork
         {
             TDataContext entity = _Mapper.Map<TDataModel, TDataContext>(model);
             Repository.Insert(entity);
-            //Repository.SaveRepoAsync();
+            Repository.SaveRepoAsync();
         }
 
         public async Task Delete(int id)
