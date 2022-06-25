@@ -24,7 +24,6 @@ namespace LMG.UnitTest
         private Mock<IGenericRepository<DC_Reservation>> _mockReservationRepo;
         private Mock<IGenericRepository<DC_Review>> _mockReviewRepo;
         private Mock<IGenericRepository<DC_Series>> _mockSeriesRepo;
-        private Mock<IMemberManagementUnitOfWork> _uow;
 
         private Mapper _Mapper;
         private List<DC_Book> books;
@@ -55,9 +54,6 @@ namespace LMG.UnitTest
             _mockReservationRepo = new Mock<IGenericRepository<DC_Reservation>>();
             _mockReviewRepo = new Mock<IGenericRepository<DC_Review>>();
             _mockSeriesRepo = new Mock<IGenericRepository<DC_Series>>();
-
-            //Mock uow
-            _uow = new Mock<IMemberManagementUnitOfWork>();
 
             //config for Mapper
             var _config = new MapperConfiguration(cfg => cfg.CreateMap<DC_Book, BookModel>().ReverseMap());

@@ -8,21 +8,19 @@ namespace LMG.DAT.UnitOfWork
     public class GeneralUnitOfWork<TDataModel, TDataContext> : IGeneralUnitOfWork<TDataModel, TDataContext> where TDataContext : DataContextBase
     {
         protected readonly IGenericRepository<TDataContext> Repository;
-        protected readonly LMG_DbContext Context;
         private Mapper _Mapper;
 
-        public GeneralUnitOfWork(IGenericRepository<TDataContext> repository, LMG_DbContext ctx)
+        public GeneralUnitOfWork(IGenericRepository<TDataContext> repository)
         {
             Repository = repository;
-            Context = ctx;
             var _config = new MapperConfiguration(cfg => cfg.CreateMap<TDataContext, TDataModel>().ReverseMap());
             _Mapper = new Mapper(_config);
         }
 
         public async Task<ICollection<TDataModel>> GetAll()
         {
-            ICollection<TDataContext> objFromDb = await Repository.GetAllAsync(0, 5);
-            ICollection<TDataModel> model = _Mapper.Map<ICollection<TDataContext>, ICollection<TDataModel>>(objFromDb);
+            var objFromDb = await Repository.GetAllAsync(0, 5);
+            var model = _Mapper.Map<ICollection<TDataContext>, ICollection<TDataModel>>(objFromDb);
 
             return model;
         }
@@ -30,8 +28,15 @@ namespace LMG.DAT.UnitOfWork
         public async Task<TDataModel> GetById(int id)
         {
             var entity = await Repository.GetByIdAsync(id);
-            TDataModel model = _Mapper.Map<TDataContext, TDataModel>(entity);
-            return model;
+            if (entity == null)
+            {
+                throw new Exception("Not Found");
+            }
+            else
+            {
+                var model = _Mapper.Map<TDataContext, TDataModel>(entity);
+                return model;
+            }
         }
 
         public void Insert(TDataModel model)
