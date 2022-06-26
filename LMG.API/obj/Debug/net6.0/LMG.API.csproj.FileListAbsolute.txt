@@ -266,3 +266,6 @@ C:\Users\codeday\EBSCO-Folio\memberManagement\LMG\LMG.API\obj\Debug\net6.0\refin
 C:\Users\codeday\EBSCO-Folio\memberManagement\LMG\LMG.API\obj\Debug\net6.0\LMG.API.pdb
 C:\Users\codeday\EBSCO-Folio\memberManagement\LMG\LMG.API\obj\Debug\net6.0\LMG.API.genruntimeconfig.cache
 C:\Users\codeday\EBSCO-Folio\memberManagement\LMG\LMG.API\obj\Debug\net6.0\ref\LMG.API.dll
+C:\Users\codeday\EBSCO\LMG\LMG.API\bin\Debug\net6.0\AutoMapper.dll
+C:\Users\codeday\EBSCO\LMG\LMG.API\bin\Debug\net6.0\LMG.BLL.dll
+C:\Users\codeday\EBSCO\LMG\LMG.API\bin\Debug\net6.0\LMG.BLL.pdb

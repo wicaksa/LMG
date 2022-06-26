@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "bJluOI++oJ08zpRJ7o5SzwuR0SFr4AIuEGaOirfiL8IxbakvDdyQy0yww230TMf/3SKWvtxnmizXG4dZ21IMfg==",
+  "dgSpecHash": "ldpISy748Iu+5GsDWgbKhwgfcz6cvd72KWeXZESMfftnWYBFfLiZEhaHaC/veySv9yUxBvHJlA+a9/Cdq3cpeA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\codeday\\EBSCO-Folio\\memberManagement\\LMG\\LMG.DAT\\LMG.DAT.csproj",
+  "projectFilePath": "C:\\Users\\codeday\\EBSCO\\LMG\\LMG.DAT\\LMG.DAT.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\codeday\\.nuget\\packages\\automapper\\11.0.1\\automapper.11.0.1.nupkg.sha512",
     "C:\\Users\\codeday\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",

@@ -125,5 +125,112 @@ namespace LMG.UnitTest
             _mockBookRepo.Verify(save => save.SaveRepoAsync(), Times.Exactly(1));
         }
 
+        [Test]
+        public async Task Delete_ValidParams_Success()
+        {
+            // Arrange
+            _mockBookRepo.Setup(get => get.GetByIdAsync(1)).ReturnsAsync(books[0]);
+
+            // Act
+             await uow.Delete(1);
+
+            // Assert
+            _mockBookRepo.Verify(d => d.Delete(It.IsAny<int>()), Times.Exactly(1));
+            _mockBookRepo.Verify(s => s.SaveRepoAsync(), Times.Exactly(1));
+        }
+
+        [Test]
+        public Task Delete_InvalidParams_ThrowsException()
+        {
+            // Arrange
+            var actual = Assert.ThrowsAsync<Exception>(() => uow.Delete(100));
+
+            // Act
+            var expected = "Not Found";
+
+            // Assert
+            Assert.That(expected, Is.EqualTo(actual.Message));
+            return Task.CompletedTask;
+        }
+
+        [Test]
+        public async Task InsertCollection_ValidParams_Success()
+        {
+            // Arrange
+            var fakeBooks = new List<DC_Book>() {
+                new DC_Book
+                {
+                    Title = "Test",
+                    Copies = 5,
+                    SerieId = null,
+                    Edition = 1,
+                    Genre = "Test",
+                    Summary = "Test",
+                    PublicationYear = 1776
+                }, new DC_Book
+                {
+                    Title = "Test2",
+                    Copies = 0,
+                    SerieId = null,
+                    Edition = 1,
+                    Genre = "Test2",
+                    Summary = "Test2",
+                    PublicationYear = 2021
+                }};
+            var fakeModels = _Mapper.Map<IEnumerable<DC_Book>, ICollection<BookModel>>(fakeBooks);
+
+            // Act
+            await uow.InsertCollection(fakeModels);
+
+            // Assert
+            _mockBookRepo.Verify(i => i.InsertCollection(It.IsAny<IEnumerable<DC_Book>>()), Times.Exactly(1));
+            _mockBookRepo.Verify(s => s.SaveRepoAsync(), Times.Exactly(1));
+        }
+
+        [Test]
+        public Task InsertCollection_InvalidParams_Fail()
+        {
+            // Arrange 
+            var expected = "Cannot add empty list.";
+
+            // Act
+            var actual = Assert.ThrowsAsync<Exception>(async () => await uow.InsertCollection(null));
+
+            // Assert
+            Assert.That(actual.Message, Is.EqualTo(expected));
+            return Task.CompletedTask;
+        }
+
+        [Test]
+        public async Task Update_ValidParams_Success()
+        {
+            // Arrange 
+            _mockBookRepo.Setup(x => x.GetByIdAsync(1)).ReturnsAsync(books[0]);
+            var BookModel = _Mapper.Map<DC_Book, BookModel>(books[0]);
+
+            // Act
+            await uow.Update(1, BookModel);
+
+            // Assert
+            _mockBookRepo.Verify(u => u.Update(It.IsAny<DC_Book>()), Times.Exactly(1));
+            _mockBookRepo.Verify(s => s.SaveRepoAsync(), Times.Exactly(1));
+        }
+
+        [Test]
+        public async Task Update_InvalidParams_ThrowsException()
+        {
+            // Arrange 
+            var expected = "does not exist";
+
+            // Act
+            var actual = Assert.ThrowsAsync<Exception>(async () => await uow.Update(100, null));
+
+            // Assert
+            Assert.That(actual.Message, Is.EqualTo(expected));
+        }
+
+
+
+
     }
 }

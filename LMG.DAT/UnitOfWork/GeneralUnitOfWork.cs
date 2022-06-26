@@ -60,11 +60,19 @@ namespace LMG.DAT.UnitOfWork
 
         public async Task InsertCollection(IEnumerable<TDataModel> models)
         {
-            IEnumerable<TDataContext> entities = _Mapper.Map<IEnumerable<TDataModel>, IEnumerable<TDataContext>>(models);
-            await Repository.InsertCollection(entities);
-            await Repository.SaveRepoAsync();
-        }
+            if (models == null)
+            {
+                throw new Exception("Cannot add empty list.");
+            }
+            else
+            {
+                IEnumerable<TDataContext> entities = _Mapper.Map<IEnumerable<TDataModel>, IEnumerable<TDataContext>>(models);
+                await Repository.InsertCollection(entities);
+                await Repository.SaveRepoAsync();
 
+            }
+               
+        }
 
         public async Task Update(int id, TDataModel model)
         {

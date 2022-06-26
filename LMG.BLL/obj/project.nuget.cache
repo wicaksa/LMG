@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "BmosC5qDuYsBqjl1Ug6Z9K+IzMU23+dnQ1yjNWZ/6CJ6bWC4S/YnmyCWSfdVQf+HXcsvUv7A7b9Pc2W5DELGag==",
+  "dgSpecHash": "Eo128OqVzc2uqb8ZDS5DvqUqHjMki4a03iKaiHALVbbzPOacR8QqbN1wbiJwTSu9E6MtzGv46kemxZdM5U+lJg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\codeday\\EBSCO-Folio\\memberManagement\\LMG\\LMG.BLL\\LMG.BLL.csproj",
+  "projectFilePath": "C:\\Users\\codeday\\EBSCO\\LMG\\LMG.BLL\\LMG.BLL.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\codeday\\.nuget\\packages\\automapper\\11.0.1\\automapper.11.0.1.nupkg.sha512",
     "C:\\Users\\codeday\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512"
