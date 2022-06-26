@@ -19,14 +19,13 @@ namespace LMG.API.Controllers
         {
 
             // Get an instance of the generic repository
-            protected readonly GenericRepository<TDataContext> Repository;
-            private GenericBLL<TDataModel,TDataContext> _BLL;
+            //protected readonly IGenericRepository<TDataContext> Repository;
+            private readonly IGeneralUnitOfWork<TDataModel,TDataContext> _uow;
 
             // Constructor 
-            public LMGControllerBase(GenericRepository<TDataContext> repository)
+            public LMGControllerBase(IGeneralUnitOfWork<TDataModel, TDataContext> uow)
             {
-                Repository = repository;
-                _BLL = new GenericBLL<TDataModel, TDataContext>(Repository);
+                _uow = uow;
             }
 
             // Delete
@@ -53,8 +52,8 @@ namespace LMG.API.Controllers
 
                 return Ok(obj);
                 */
-                await _BLL.Delete(id);
-                await Repository.SaveRepoAsync();
+                await _uow.Delete(id);
+                // await _uow.SaveRepoAsync();
             }
 
             // Get all records in the db.
@@ -64,7 +63,7 @@ namespace LMG.API.Controllers
             {
                 // Find how many rows are availabe.
                 //return Ok(await Repository.GetAllAsync(0, 5));
-                return await _BLL.GetAll();
+                return await _uow.GetAll();
             }
 
             // Get By Id
@@ -86,7 +85,7 @@ namespace LMG.API.Controllers
                 // Return object 
                 return Ok(obj);
                 */
-                var obj = await _BLL.GetById(id);
+                var obj = await _uow.GetById(id);
                 if(obj == null)
                 {
                     return NotFound("Invalid ID");
@@ -103,8 +102,8 @@ namespace LMG.API.Controllers
                 Repository.Insert(obj);
                 Repository.SaveRepoAsync();
                 */
-                _BLL.Insert(obj);
-                Repository.SaveRepoAsync();
+                _uow.Insert(obj);
+                //Repository.SaveRepoAsync();
             }
 
             // Insert collection
@@ -117,8 +116,8 @@ namespace LMG.API.Controllers
                 await Repository.SaveRepoAsync();
                 */
 
-                await _BLL.InsertCollection(obj);
-                await Repository.SaveRepoAsync();
+                await _uow.InsertCollection(obj);
+                //await Repository.SaveRepoAsync();
             }
 
             // Update
@@ -147,8 +146,8 @@ namespace LMG.API.Controllers
                 Ok();
                 */
                 
-                await _BLL.Update(id, obj);
-                await Repository.SaveRepoAsync();
+                await _uow.Update(id, obj);
+                //await Repository.SaveRepoAsync();
             }
         }
     }

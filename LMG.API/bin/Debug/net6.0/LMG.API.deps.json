@@ -9,6 +9,7 @@
       "LMG.API/1.0.0": {
         "dependencies": {
           "LMG.BLL": "1.0.0",
+          "LMG.DAT": "1.0.0",
           "Microsoft.EntityFrameworkCore.Design": "6.0.5",
           "Swashbuckle.AspNetCore": "6.2.3"
         },
@@ -488,8 +489,7 @@
       },
       "LMG.BLL/1.0.0": {
         "dependencies": {
-          "AutoMapper": "11.0.1",
-          "LMG.DAT": "1.0.0"
+          "AutoMapper": "11.0.1"
         },
         "runtime": {
           "LMG.BLL.dll": {}
@@ -497,6 +497,8 @@
       },
       "LMG.DAT/1.0.0": {
         "dependencies": {
+          "AutoMapper": "11.0.1",
+          "LMG.BLL": "1.0.0",
           "Microsoft.EntityFrameworkCore": "6.0.5",
           "Microsoft.EntityFrameworkCore.SqlServer": "6.0.5"
         },

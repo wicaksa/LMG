@@ -11,7 +11,12 @@ namespace LMG.API.Controllers
     [ApiController]
     public class MemberController : LMGControllerBase<MemberModel, DC_Member>
     {
-        public MemberController(DAT.Interfaces.GenericRepository<DC_Member> repository) : base(repository)
+        /*
+        public MemberController(DAT.Interfaces.IGenericRepository<DC_Member> repository) : base(repository)
+        {
+        }
+        */
+        public MemberController(IGeneralUnitOfWork<MemberModel, DC_Member> uow) : base(uow)
         {
         }
     }

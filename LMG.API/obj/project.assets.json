@@ -707,8 +707,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
-          "AutoMapper": "11.0.1",
-          "LMG.DAT": "1.0.0"
+          "AutoMapper": "11.0.1"
         },
         "compile": {
           "bin/placeholder/LMG.BLL.dll": {}
@@ -721,6 +720,8 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
+          "AutoMapper": "11.0.1",
+          "LMG.BLL": "1.0.0",
           "Microsoft.EntityFrameworkCore": "6.0.5",
           "Microsoft.EntityFrameworkCore.SqlServer": "6.0.5"
         },
@@ -2081,6 +2082,7 @@
   "projectFileDependencyGroups": {
     "net6.0": [
       "LMG.BLL >= 1.0.0",
+      "LMG.DAT >= 1.0.0",
       "Microsoft.EntityFrameworkCore.Design >= 6.0.5",
       "Swashbuckle.AspNetCore >= 6.2.3"
     ]
@@ -2092,11 +2094,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\codeday\\EBSCO-Folio\\BLL\\LMG\\LMG.API\\LMG.API.csproj",
+      "projectUniqueName": "C:\\Users\\codeday\\EBSCO\\LMG\\LMG.API\\LMG.API.csproj",
       "projectName": "LMG.API",
-      "projectPath": "C:\\Users\\codeday\\EBSCO-Folio\\BLL\\LMG\\LMG.API\\LMG.API.csproj",
+      "projectPath": "C:\\Users\\codeday\\EBSCO\\LMG\\LMG.API\\LMG.API.csproj",
       "packagesPath": "C:\\Users\\codeday\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\codeday\\EBSCO-Folio\\BLL\\LMG\\LMG.API\\obj\\",
+      "outputPath": "C:\\Users\\codeday\\EBSCO\\LMG\\LMG.API\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -2117,8 +2119,11 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\codeday\\EBSCO-Folio\\BLL\\LMG\\LMG.BLL\\LMG.BLL.csproj": {
-              "projectPath": "C:\\Users\\codeday\\EBSCO-Folio\\BLL\\LMG\\LMG.BLL\\LMG.BLL.csproj"
+            "C:\\Users\\codeday\\EBSCO\\LMG\\LMG.BLL\\LMG.BLL.csproj": {
+              "projectPath": "C:\\Users\\codeday\\EBSCO\\LMG\\LMG.BLL\\LMG.BLL.csproj"
+            },
+            "C:\\Users\\codeday\\EBSCO\\LMG\\LMG.DAT\\LMG.DAT.csproj": {
+              "projectPath": "C:\\Users\\codeday\\EBSCO\\LMG\\LMG.DAT\\LMG.DAT.csproj"
             }
           }
         }

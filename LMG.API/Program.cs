@@ -9,8 +9,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
-builder.Services.AddTransient(typeof(LMG.DAT.Interfaces.GenericRepository<>), typeof(LMG.DAT.Repositories.GenericRepository<>));
-builder.Services.AddTransient<IGeneralUnitOfWork, GeneralUnitOfWork>();
+builder.Services.AddTransient(typeof(LMG.DAT.Interfaces.IGenericRepository<>), typeof(LMG.DAT.Repositories.GenericRepository<>));
+builder.Services.AddTransient(typeof(IGeneralUnitOfWork<,>), typeof(GeneralUnitOfWork<,>));
+builder.Services.AddTransient<IMemberManagementUnitOfWork, MemberManagementUnitOfWork>();
 builder.Services.AddDbContext<LMG_DbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));

@@ -13,20 +13,28 @@ namespace LMG.API.Controllers
     [ApiController]
     public class BookController : LMGControllerBase<BookModel, DC_Book>
     {
-        private readonly IGeneralUnitOfWork _uow;
+        //private readonly IGeneralUnitOfWork<BookModel, DC_Book> _uow;
 
-        public BookController(GenericRepository<DC_Book> repository) : base(repository)
+        public BookController(IGeneralUnitOfWork<BookModel, DC_Book> uow) : base(uow)
+        {
+        }
+
+        /*
+        public BookController(IGenericRepository<DC_Book> repository) : base(repository)
         {
             
         }
+        */
 
+        /*
         [ActivatorUtilitiesConstructor]
-        public BookController(IGeneralUnitOfWork uow, GenericRepository<DC_Book> repository) : base(repository)
+        public BookController(IGeneralUnitOfWork uow, IGenericRepository<DC_Book> repository) : base(repository)
         {
             _uow = uow;
         }
-        
-        
+        */
+
+
     }
 
 }

@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\LMG.BLL\LMG.BLL.csproj" />
+    <ProjectReference Include="..\LMG.DAT\LMG.DAT.csproj" />
   </ItemGroup>
 
 </Project>

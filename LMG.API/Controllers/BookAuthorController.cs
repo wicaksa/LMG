@@ -13,9 +13,14 @@ namespace LMG.API.Controllers
     public class BookAuthorController : LMGControllerBase<BookAuthorModel, DC_BookAuthor>
 
     {
-        public BookAuthorController(GenericRepository<DC_BookAuthor> repository) : base(repository)
+        /*
+        public BookAuthorController(IGenericRepository<DC_BookAuthor> repository) : base(repository)
         {
 
+        }
+        */
+        public BookAuthorController(IGeneralUnitOfWork<BookAuthorModel, DC_BookAuthor> uow) : base(uow)
+        {
         }
     }
 }

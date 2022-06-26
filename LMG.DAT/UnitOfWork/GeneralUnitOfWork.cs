@@ -1,35 +1,90 @@
-﻿using LMG.DAT.DataContext;
+﻿using AutoMapper;
+using LMG.DAT.DataContext;
 using LMG.DAT.Interfaces;
-using LMG.DAT.Models.Author;
-using LMG.DAT.Models.Book;
-using LMG.DAT.Models.BookAuthor;
-using LMG.DAT.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using LMG.DAT.Models;
 
 namespace LMG.DAT.UnitOfWork
 {
-    public interface IGeneralUnitOfWork
+    public class GeneralUnitOfWork<TDataModel, TDataContext> : IGeneralUnitOfWork<TDataModel, TDataContext> where TDataContext : DataContextBase
     {
-        Interfaces.GenericRepository<DC_Book> BookRepository { get; }
-        Interfaces.GenericRepository<DC_Author> AuthorRepository { get; }
-        Interfaces.GenericRepository<DC_BookAuthor> BookAuthorRepository { get; }
-    }
-    public class GeneralUnitOfWork : IGeneralUnitOfWork
-    {
-        public Interfaces.GenericRepository<DC_Book> BookRepository { get; private set; }
-        public Interfaces.GenericRepository<DC_Author> AuthorRepository { get; private set; }
-        public Interfaces.GenericRepository<DC_BookAuthor> BookAuthorRepository { get; private set; }
+        protected readonly IGenericRepository<TDataContext> Repository;
+        private Mapper _Mapper;
 
-        public GeneralUnitOfWork(Interfaces.GenericRepository<DC_Book> bookRepository, Interfaces.GenericRepository<DC_Author> authorRepository, Interfaces.GenericRepository<DC_BookAuthor> bookAuthorRepository)
+        public GeneralUnitOfWork(IGenericRepository<TDataContext> repository)
         {
-            BookRepository = bookRepository;
-            AuthorRepository = authorRepository;
-            BookAuthorRepository = bookAuthorRepository;
-        } 
+            Repository = repository;
+            var _config = new MapperConfiguration(cfg => cfg.CreateMap<TDataContext, TDataModel>().ReverseMap());
+            _Mapper = new Mapper(_config);
+        }
+
+        public async Task<ICollection<TDataModel>> GetAll()
+        {
+            var objFromDb = await Repository.GetAllAsync(0, 5);
+            var model = _Mapper.Map<ICollection<TDataContext>, ICollection<TDataModel>>(objFromDb);
+
+            return model;
+        }
+
+        public async Task<TDataModel> GetById(int id)
+        {
+            var entity = await Repository.GetByIdAsync(id);
+            if (entity == null)
+            {
+                throw new Exception("Not Found");
+            }
+            else
+            {
+                var model = _Mapper.Map<TDataContext, TDataModel>(entity);
+                return model;
+            }
+        }
+
+        public void Insert(TDataModel model)
+        {
+            TDataContext entity = _Mapper.Map<TDataModel, TDataContext>(model);
+            Repository.Insert(entity);
+            Repository.SaveRepoAsync();
+        }
+
+        public async Task Delete(int id)
+        {
+            var entity = await Repository.GetByIdAsync(id);
+            if (entity == null)
+            {
+                throw new Exception("Not Found");
+            }
+            await Repository.Delete(id);
+            await Repository.SaveRepoAsync();
+        }
+
+
+        public async Task InsertCollection(IEnumerable<TDataModel> models)
+        {
+            if (models == null)
+            {
+                throw new Exception("Cannot add empty list.");
+            }
+            else
+            {
+                IEnumerable<TDataContext> entities = _Mapper.Map<IEnumerable<TDataModel>, IEnumerable<TDataContext>>(models);
+                await Repository.InsertCollection(entities);
+                await Repository.SaveRepoAsync();
+
+            }
+               
+        }
+
+        public async Task Update(int id, TDataModel model)
+        {
+            var dbObj = await Repository.GetByIdAsync(id);
+            TDataContext entity = _Mapper.Map<TDataModel, TDataContext>(model, dbObj);
+            if (entity == null)
+            {
+                throw new Exception("does not exist");
+            }
+            Repository.Update(entity);
+            await Repository.SaveRepoAsync();
+        }
 
     }
 }
